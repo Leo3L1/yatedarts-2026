@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>YATEDARTS | Official Elite Landing</title>
+    <title>YATEDARTS | Official Landing 2026</title>
     <style>
         :root {
             --primary: #ff4d4d; --secondary: #16213e; --accent: #00d4ff;
@@ -14,79 +14,67 @@
         * { box-sizing: border-box; }
 
         body { 
-            font-family: 'Inter', -apple-system, sans-serif; 
+            font-family: 'Inter', sans-serif; 
             color: var(--text); 
             margin: 0; 
-            padding-bottom: 40px; 
-            
-            /* EFECTO FONDO PROFESIONAL */
-            background-color: var(--bg); /* Fallback */
-            background-image: linear-gradient(rgba(11, 11, 20, 0.85), rgba(11, 11, 20, 0.95)), url('pub_yatedigo.jpg');
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            /* FONDO PROFESIONAL CON OVERLAY */
+            background: linear-gradient(rgba(11, 11, 20, 0.88), rgba(11, 11, 20, 0.96)), url('pub_yatedigo.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            -webkit-tap-highlight-color: transparent;
         }
 
-        .container { width: 95%; max-width: 1100px; margin: 20px auto; }
+        .container { width: 95%; max-width: 1100px; margin: auto; padding: 20px 0; }
         
-        /* Carta con efecto cristal */
         .card { 
-            background: rgba(22, 33, 62, 0.8); 
-            backdrop-filter: blur(10px); /* Efecto moderno de desenfoque */
-            border-radius: 25px; 
+            background: rgba(22, 33, 62, 0.7); 
+            backdrop-filter: blur(12px);
+            border-radius: 30px; 
             padding: 30px; 
-            border: 1px solid rgba(255,255,255,0.05); 
+            border: 1px solid rgba(255,255,255,0.1); 
             text-align: center; 
-            box-shadow: 0 15px 50px rgba(0,0,0,0.7); 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8); 
         }
         
-        /* Header adaptable */
-        .header-box { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; gap: 15px;}
-        .logo-img { width: 100px; height: 100px; object-fit: contain; border-radius: 15px; border: 2px solid var(--primary); padding: 5px; background: rgba(0,0,0,0.5); flex-shrink: 0; }
+        .header-box { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; gap: 10px;}
+        .logo-img { width: 90px; height: 90px; object-fit: contain; border-radius: 15px; border: 2px solid var(--primary); background: rgba(0,0,0,0.6); padding: 5px; }
         
-        @media (max-width: 600px) {
-            .header-box { flex-direction: column; text-align: center; gap: 20px;}
-            .logo-img { width: 80px; height: 80px; }
-            h1 { font-size: 2.2rem !important; }
-        }
+        h1 { font-size: 2.8rem; letter-spacing: 4px; color: #fff; text-shadow: 0 0 15px var(--primary); text-transform: uppercase; margin: 0; }
 
-        /* Tabla Estilo Phoenix Pro con Optimización Móvil */
-        .table-container { margin: 30px 0; border-radius: 20px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); overflow: hidden; }
+        /* Optimización de Tabla */
+        .table-container { margin: 25px 0; border-radius: 20px; overflow: hidden; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); }
         table { width: 100%; border-collapse: collapse; }
-        th { background: rgba(0,212,255,0.05); color: var(--accent); text-align: left; padding: 18px; font-size: 0.8rem; text-transform: uppercase; }
-        td { padding: 16px 18px; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 1rem; }
+        th { background: rgba(0,212,255,0.08); color: var(--accent); padding: 15px; font-size: 0.75rem; text-transform: uppercase; text-align: left; }
+        td { padding: 14px 15px; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 0.95rem; text-align: left;}
         
-        .rank-1 { background: linear-gradient(90deg, rgba(255,215,0,0.1), transparent); }
-        .rank-1 td:first-child { color: var(--gold); font-weight: 900; font-size: 1.5rem; }
-        .comb-cell { font-weight: 900; color: var(--success); font-size: 1.1rem; text-align: right;}
-        .val-cell { text-align: right;}
+        .rank-1 { background: rgba(255,215,0,0.08); font-weight: bold; }
+        .comb-cell { color: var(--success); font-weight: 900; text-align: right; }
+        .val-right { text-align: right; }
 
-        /* CSS MÓVIL (Adiós scroll horizontal) */
+        /* RESPONSIVE MÓVIL (Sin scroll horizontal) */
         @media (max-width: 600px) {
-            /* Ocultar PPD y MPR en móvil */
-            th.ppd-col, td.ppd-col, th.mpr-col, td.mpr-col { display: none; }
-            
-            /* Ajustar anchos para móvil */
-            th, td { padding: 12px; font-size: 0.85rem; }
-            th:nth-child(2), td:nth-child(2) { width: 50%; } /* Equipo */
-            th.comb-col, td.comb-col { width: 30%; text-align: right; } /* COMB */
-            th.pts-col, td.pts-col { width: 15%; text-align: right; } /* Puntos */
-            .comb-cell { font-size: 1rem; }
+            h1 { font-size: 1.8rem !important; }
+            .logo-img { width: 65px; height: 65px; }
+            .hide-mobile { display: none; }
+            th, td { padding: 10px; font-size: 0.8rem; }
+            .comb-cell { font-size: 0.9rem; }
         }
 
-        /* Contenedor Flex para centrar el botón */
-        .cta-wrapper { display: flex; justify-content: center; width: 100%; margin-top: 20px; }
-
+        /* Botón Centrado */
+        .cta-wrapper { display: flex; justify-content: center; margin: 30px 0; }
         .cta-btn { 
-            display: inline-block; width: 100%; max-width: 500px; padding: 22px; 
             background: linear-gradient(135deg, var(--primary), #b31217); 
-            color: white; border-radius: 15px; font-weight: 900; font-size: 1.4rem; 
-            text-decoration: none; box-shadow: 0 10px 30px rgba(255,77,77,0.4);
-            transition: 0.3s; text-transform: uppercase;
+            color: white; padding: 18px 40px; border-radius: 50px; 
+            font-weight: 900; font-size: 1.2rem; text-decoration: none; 
+            text-transform: uppercase; box-shadow: 0 10px 25px rgba(255,77,77,0.4);
+            transition: 0.3s; border: 1px solid rgba(255,255,255,0.2);
         }
-        .cta-btn:hover { transform: scale(1.02); box-shadow: 0 15px 40px rgba(255,77,77,0.6); }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(255,77,77,0.6); }
 
+        footer { font-size: 0.75rem; color: #666; margin-top: 20px; text-align: center; }
     </style>
 </head>
 <body>
@@ -94,12 +82,12 @@
 <div class="container">
     <div class="card">
         <div class="header-box">
-            <img src="logo_equipo.png" alt="YATEDARTS" class="logo-img" onerror="this.style.display='none'">
+            <img src="logo_equipo.png" alt="Logo" class="logo-img" onerror="this.style.visibility='hidden'">
             <div>
-                <h1 style="margin:0; font-size: 2.8rem; letter-spacing: 3px; color: #fff; text-shadow: 0 0 20px var(--primary); text-transform: uppercase;">YATEDARTS</h1>
-                <p style="margin:5px 0; color: var(--accent); font-weight: bold; font-size: 1rem;">Líderes Grupo 030 | Temporada 2026</p>
+                <h1>YATEDARTS</h1>
+                <p style="margin:5px 0; color: var(--accent); font-weight: bold; font-size: 0.9rem;">Líderes Grupo 030 | Liga 2026</p>
             </div>
-            <img src="pub_yatedigo.jpg" alt="PUB YATEDIGO" class="logo-img" style="border-color: var(--gold);" onerror="this.style.display='none'">
+            <img src="pub_yatedigo.jpg" alt="Local" class="logo-img" style="border-color: var(--gold);" onerror="this.style.visibility='hidden'">
         </div>
 
         <div class="table-container">
@@ -108,77 +96,21 @@
                     <tr>
                         <th>Pos</th>
                         <th>Equipo</th>
-                        <th class="comb-col" style="text-align:right;">COMB</th>
-                        <th class="ppd-col" style="text-align:right;">PPD</th>
-                        <th class="mpr-col" style="text-align:right;">MPR</th>
-                        <th class="pts-col" style="text-align:right;">Ptos</th>
+                        <th class="val-right">COMB</th>
+                        <th class="val-right hide-mobile">PPD</th>
+                        <th class="val-right hide-mobile">MPR</th>
+                        <th class="val-right">Ptos</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="rank-1">
-                        <td>1</td>
-                        <td style="font-weight:bold;">YATEDARTS</td>
-                        <td class="comb-cell comb-col">53.65</td>
-                        <td class="val-cell ppd-col">27.45</td>
-                        <td class="val-cell mpr-col">2.62</td>
-                        <td class="pts-col" style="text-align:right; color: var(--gold); font-weight:900;">2</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td style="font-weight:bold;">LOS FARGONITAS</td>
-                        <td class="comb-cell comb-col" style="color: var(--text);">50.83</td>
-                        <td class="val-cell ppd-col">24.43</td>
-                        <td class="val-cell mpr-col">2.64</td>
-                        <td class="pts-col" style="text-align:right;">2</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>SANTACATA</td>
-                        <td class="val-cell comb-col">51.36</td>
-                        <td class="val-cell ppd-col">25.86</td>
-                        <td class="val-cell mpr-col">2.55</td>
-                        <td class="pts-col" style="text-align:right;">1</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>CERVEZA AQUÍ</td>
-                        <td class="val-cell comb-col">50.70</td>
-                        <td class="val-cell ppd-col">25.40</td>
-                        <td class="val-cell mpr-col">2.53</td>
-                        <td class="pts-col" style="text-align:right;">1</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>LA PEÑA DE LA PACA</td>
-                        <td class="val-cell comb-col">46.29</td>
-                        <td class="val-cell ppd-col">22.59</td>
-                        <td class="val-cell mpr-col">2.37</td>
-                        <td class="pts-col" style="text-align:right;">0</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td style="font-weight:bold;">ARKADIOS ERRANTES</td>
-                        <td class="val-cell comb-col" style="color: var(--text);">45.54</td>
-                        <td class="val-cell ppd-col">22.04</td>
-                        <td class="val-cell mpr-col">2.35</td>
-                        <td class="pts-col" style="text-align:right;">0</td>
-                    </tr>
-                    <tr style="opacity: 0.4;">
-                        <td>7</td>
-                        <td>ELIPTICO DARTS B</td>
-                        <td class="val-cell comb-col">--</td>
-                        <td class="val-cell ppd-col">--</td>
-                        <td class="val-cell mpr-col">--</td>
-                        <td class="pts-col" style="text-align:right;">0</td>
-                    </tr>
-                    <tr style="opacity: 0.4;">
-                        <td>8</td>
-                        <td>BEEPS VAPORUB</td>
-                        <td class="val-cell comb-col">--</td>
-                        <td class="val-cell ppd-col">--</td>
-                        <td class="val-cell mpr-col">--</td>
-                        <td class="pts-col" style="text-align:right;">0</td>
-                    </tr>
+                    <tr class="rank-1"><td>1</td><td>YATEDARTS</td><td class="comb-cell">53.65</td><td class="val-right hide-mobile">27.45</td><td class="val-right hide-mobile">2.62</td><td class="val-right" style="color:var(--gold)">2</td></tr>
+                    <tr><td>2</td><td>LOS FARGONITAS</td><td class="val-right" style="font-weight:bold">50.83</td><td class="val-right hide-mobile">24.43</td><td class="val-right hide-mobile">2.64</td><td class="val-right">2</td></tr>
+                    <tr><td>3</td><td>SANTACATA</td><td class="val-right">51.36</td><td class="val-right hide-mobile">25.86</td><td class="val-right hide-mobile">2.55</td><td class="val-right">1</td></tr>
+                    <tr><td>4</td><td>CERVEZA AQUÍ</td><td class="val-right">50.70</td><td class="val-right hide-mobile">25.40</td><td class="val-right hide-mobile">2.53</td><td class="val-right">1</td></tr>
+                    <tr><td>5</td><td>PEÑA DE LA PACA</td><td class="val-right">46.29</td><td class="val-right hide-mobile">22.59</td><td class="val-right hide-mobile">2.37</td><td class="val-right">0</td></tr>
+                    <tr><td>6</td><td>ARKADIOS ERRANTES</td><td class="val-right" style="font-weight:bold">45.54</td><td class="val-right hide-mobile">22.04</td><td class="val-right hide-mobile">2.35</td><td class="val-right">0</td></tr>
+                    <tr style="opacity: 0.3;"><td>7</td><td>ELIPTICO B</td><td class="val-right">--</td><td class="val-right hide-mobile">--</td><td class="val-right hide-mobile">--</td><td class="val-right">0</td></tr>
+                    <tr style="opacity: 0.3;"><td>8</td><td>BEEPS VAPORUB</td><td class="val-right">--</td><td class="val-right hide-mobile">--</td><td class="val-right hide-mobile">--</td><td class="val-right">0</td></tr>
                 </tbody>
             </table>
         </div>
@@ -187,10 +119,12 @@
             <a href="warroom.html" class="cta-btn">Entrar al War Room</a>
         </div>
 
-        <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05);">
-            <p style="margin:0; font-weight: bold; color: var(--gold); text-transform: uppercase;">Sede: PUB YATEDIGO</p>
-            <p style="margin:5px 0; font-size: 0.8rem; color: #aaa;">Club de Dardos Phoenix de Élite | +8 Máquinas Profesionales | Liga Nacional 2026</p>
-        </div>
+        <p style="margin:0; font-weight: bold; color: var(--gold); text-transform: uppercase; font-size: 0.8rem;">Sede: PUB YATEDIGO</p>
+        <p style="margin:5px 0; font-size: 0.75rem; color: #888;">Club de Dardos Phoenix de Élite | Liga Nacional 2026</p>
+        
+        <footer>
+            © 2026 YATEDARTS Analytics. Todos los derechos reservados.
+        </footer>
     </div>
 </div>
 
