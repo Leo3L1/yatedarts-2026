@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>YATEDARTS | Elite Performance Center</title>
+    <title>YATEDARTS | War Room - Elite Performance Center</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
@@ -19,12 +19,24 @@
             color: var(--text); 
             margin: 0; 
             padding-bottom: 20px; 
-            -webkit-tap-highlight-color: transparent;
-            /* FONDO PROFESIONAL DEL PUB */
             background: linear-gradient(rgba(11, 11, 20, 0.85), rgba(11, 11, 20, 0.95)), url('pub_yatedigo.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
+            transition: background 0.3s;
+        }
+
+        body.light {
+            background: linear-gradient(rgba(240, 240, 255, 0.85), rgba(220, 220, 250, 0.9)), url('pub_yatedigo.jpg');
+            color: #1a1a2e;
+        }
+        body.light .card {
+            background: rgba(255, 255, 255, 0.7);
+            color: #1a1a2e;
+        }
+        body.light .motivation-box {
+            background: rgba(0,0,0,0.05);
+            color: #1a1a2e;
         }
         
         .navbar { 
@@ -52,7 +64,6 @@
         .grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
         @media (min-width: 850px) { .grid { grid-template-columns: 1fr 1fr; } }
 
-        /* PANELES TRASLÚCIDOS "GLASSMORPHISM" */
         .card { 
             background: rgba(22, 33, 62, 0.6); 
             backdrop-filter: blur(12px);
@@ -88,7 +99,68 @@
 
         .motivation-box { line-height: 1.7; color: #dee2e6; font-size: 1rem; border-left: 4px solid var(--primary); padding-left: 20px; background: rgba(255,255,255,0.03); padding: 20px; border-radius: 0 15px 15px 0; }
         
+        /* ========== EFECTO FUEGO MVP ========== */
+        .fire-effect {
+            display: inline-block;
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ff4d00, #ffaa00, #ff4d00);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 5px #ff4d00, 0 0 15px #ff4d00;
+            animation: firePulse 0.8s infinite alternate, fireShake 0.3s infinite;
+            position: relative;
+        }
+        .fire-effect::before {
+            content: attr(data-text);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            filter: blur(8px);
+            background: radial-gradient(circle, #ff8800, #ff3300);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            z-index: -1;
+            opacity: 0.8;
+        }
+        @keyframes firePulse {
+            0% { text-shadow: 0 0 3px #ff4d00, 0 0 6px #ff4d00; }
+            100% { text-shadow: 0 0 15px #ff8800, 0 0 25px #ff3300; }
+        }
+        @keyframes fireShake {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(-1px, 0.5px); }
+            75% { transform: translate(1px, -0.5px); }
+            100% { transform: translate(0, 0); }
+        }
+        /* Ajuste para que no rompa layout */
+        .mvp-fire {
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+        }
+
         footer { font-size: 0.75rem; color: #666; margin-top: 30px; text-align: center; padding: 15px; }
+
+        /* Botón tema */
+        .theme-toggle {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 30px;
+            color: white;
+            cursor: pointer;
+            font-size: 0.7rem;
+            margin-left: 10px;
+        }
+        body.light .theme-toggle {
+            background: rgba(0,0,0,0.2);
+            color: #1a1a2e;
+        }
     </style>
 </head>
 <body>
@@ -98,6 +170,7 @@
         <button class="nav-btn" onclick="openTab('global')">📈 Evolución</button>
         <button class="nav-btn" onclick="openTab('historico')">📅 Histórico</button>
         <button class="nav-btn" onclick="openTab('scouting')">⚔️ Modo Batalla J2</button>
+        <button class="theme-toggle" id="themeToggleWar">🌓 Tema</button>
     </div>
 
     <div class="container">
@@ -204,30 +277,38 @@
         © 2026 YATEDARTS Analytics. Todos los derechos reservados. | Sede Oficial: PUB YATEDIGO
     </footer>
 
+    <!-- Controles de música flotante -->
+    <div id="musicControl" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); border-radius: 50px; padding: 10px 20px; display: flex; align-items: center; gap: 12px; cursor: pointer; border: 1px solid var(--primary);">
+        <span id="musicIcon">🔊</span>
+        <span id="musicStatus" style="font-size: 0.8rem;">Activar música</span>
+    </div>
+
     <script>
+        // ========== DATOS DE JUGADORES ==========
         const players = [
             { 
-                id: 0, name: "Agustín Díaz", ppd: [31.18], mpr: [2.46], color: "#ff4d4d",
+                id: 0, name: "Agustín Díaz", ppd: [31.18], mpr: [2.46], color: "#ff4d4d", comb: 55.78,
                 feats: { EYE: 1, HAT: 2, LT: 7, "6M": 1, "5M": 1 },
                 motivation: "Agustín, has firmado un debut de categoría 'Máster'. Tu PPD de 31.18 no es solo el mejor del equipo, es de los mejores del Grupo 030. Haber conseguido el único EYE del equipo te coloca como el francotirador designado. Estadísticamente, tienes un 85% de probabilidad de ganar cualquier apertura de 501. Tu punto a pulir: en Cricket (2.46) tienes margen de mejora para asfixiar al rival con triples. Si en la J2 subes a 2.60 MPR, serás imparable."
             },
             { 
-                id: 1, name: "José Alejandro", ppd: [29.12], mpr: [2.64], color: "#00d4ff",
+                id: 1, name: "José Alejandro", ppd: [29.12], mpr: [2.64], color: "#00d4ff", comb: 55.52,
                 feats: { HAT: 2, LT: 3, "7M": 1, "6M": 1, "5M": 2 },
                 motivation: "José, eres el motor táctico. Tu COMB de 55.52 demuestra una estabilidad asombrosa. Con 2 Hat Tricks y un 7M en la primera jornada, eres el jugador que equilibra la balanza. Tu probabilidad de remontar una partida de Cricket es la más alta del equipo gracias a tu 2.64 MPR. Mantén esa frialdad en los cierres; el equipo depende de tu capacidad para puntuar y marcar simultáneamente."
             },
             { 
-                id: 2, name: "David Casaseca", ppd: [26.50], mpr: [2.69], color: "#ffd700",
+                id: 2, name: "David Casaseca", ppd: [26.50], mpr: [2.69], color: "#ffd700", comb: 53.40,
                 feats: { LT: 6, "7M": 2, "5M": 1 },
                 motivation: "David, has demostrado ser el 'Cirujano' del Cricket. Esos 2.69 MPR son una pesadilla para el rival; estadísticamente cierras los números clave 1.5 rondas antes que la media de la liga. Tus 2 marcas de 7M te coronan como el estratega del equipo. Para la J2, el objetivo es subir ese PPD a 28.0; si consigues esa pegada en 501, tu contribución al COMB global nos hará líderes indiscutibles."
             },
             { 
-                id: 3, name: "Elias Ramírez", ppd: [21.14], mpr: [2.66], color: "#4ade80",
+                id: 3, name: "Elias Ramírez", ppd: [21.14], mpr: [2.66], color: "#4ade80", comb: 47.74,
                 feats: { LT: 3, "5M": 2 },
                 motivation: "Elias, eres el 'Factor X'. Aunque tu PPD en la J1 fue de 21.14, tu rendimiento en Cricket con 2.66 MPR fue vital para amarrar partidas críticas. Tienes una consistencia de marcas superior a la de los jugadores titulares de la mayoría de equipos rivales. Si logras concentrar tu puntería en el T20 durante el 501, tu progresión será la que más sorprenda en la J2. ¡Eres el muro donde rebotan los ataques rivales!"
             }
         ];
 
+        // ========== FUNCIONES DEL PANEL ==========
         const list = document.getElementById('playerList');
         players.forEach(p => { list.innerHTML += `<div class="player-chip" id="chip-${p.id}" onclick="updateDashboard(${p.id})">${p.name}</div>`; });
 
@@ -287,10 +368,139 @@
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(name).classList.add('active');
             event.currentTarget.classList.add('active');
+            playDart(); // efecto sonido al cambiar de pestaña
         }
 
+        // ========== MVP con efecto FUEGO ==========
+        function getMVP() {
+            return players.reduce((prev, curr) => (curr.comb > prev.comb) ? curr : prev);
+        }
+
+        function injectFireMVP() {
+            const mvp = getMVP();
+            // Buscar el banner de MVP (lo añadimos dinámicamente si no existe)
+            let banner = document.querySelector('.mvp-banner');
+            if (!banner) {
+                banner = document.createElement('div');
+                banner.className = 'card mvp-banner';
+                banner.style.marginBottom = '20px';
+                banner.style.textAlign = 'center';
+                banner.style.background = 'rgba(0,0,0,0.5)';
+                const container = document.querySelector('.container');
+                container.insertBefore(banner, container.firstChild);
+            }
+            banner.innerHTML = `<span class="mvp-fire"><span class="fire-effect" data-text="🏆 ${mvp.name}">🏆 ${mvp.name}</span></span><br><small>MVP de la Jornada 1 | COMB ${mvp.comb}</small>`;
+        }
+
+        // ========== MÚSICA Y EFECTOS DE SONIDO ==========
+        let audio = null;
+        let isPlaying = false;
+        const musicControl = document.getElementById('musicControl');
+        const musicIcon = document.getElementById('musicIcon');
+        const musicStatus = document.getElementById('musicStatus');
+
+        function updateMusicUI() {
+            if (isPlaying) {
+                musicIcon.innerText = '🔊';
+                musicStatus.innerText = 'Música ON';
+                musicControl.style.borderColor = '#4ade80';
+            } else {
+                musicIcon.innerText = '🔇';
+                musicStatus.innerText = 'Música OFF';
+                musicControl.style.borderColor = 'var(--primary)';
+            }
+        }
+
+        function initMusic() {
+            if (audio) return;
+            audio = new Audio('Dartstema.mp3');
+            audio.loop = true;
+            audio.volume = 0.3;
+            const saved = localStorage.getItem('yatedarts_music');
+            if (saved === 'playing') {
+                audio.play().catch(() => {});
+                isPlaying = true;
+                updateMusicUI();
+            }
+        }
+
+        musicControl.addEventListener('click', () => {
+            if (!audio) {
+                audio = new Audio('Dartstema.mp3');
+                audio.loop = true;
+                audio.volume = 0.3;
+            }
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+                localStorage.setItem('yatedarts_music', 'paused');
+            } else {
+                audio.play().catch(e => console.log("Reproducción bloqueada"));
+                isPlaying = true;
+                localStorage.setItem('yatedarts_music', 'playing');
+            }
+            updateMusicUI();
+        });
+
+        initMusic();
+        if (localStorage.getItem('yatedarts_music') === 'playing' && audio) {
+            audio.play().catch(() => {});
+        }
+
+        const dartSound = new Audio('dardo.mp3');
+        dartSound.volume = 0.2;
+        function playDart() {
+            const clone = dartSound.cloneNode();
+            clone.play().catch(() => {});
+        }
+
+        // Asignar sonidos a elementos clickeables
+        document.querySelectorAll('.nav-btn, .player-chip, .theme-toggle').forEach(btn => {
+            btn.addEventListener('click', playDart);
+        });
+
+        // ========== TEMA CLARO/OSCURO ==========
+        const body = document.body;
+        const savedTheme = localStorage.getItem('yatedarts_theme');
+        if (savedTheme === 'light') body.classList.add('light');
+        document.getElementById('themeToggleWar').addEventListener('click', () => {
+            body.classList.toggle('light');
+            const isLight = body.classList.contains('light');
+            localStorage.setItem('yatedarts_theme', isLight ? 'light' : 'dark');
+            playDart();
+        });
+
+        // ========== INICIALIZAR ==========
         updateDashboard(0);
         initGlobal();
+        injectFireMVP();
+        // Mostrar modal solo si no se ha visto antes (mismo que en index)
+        if (!localStorage.getItem('yatedarts_welcome')) {
+            const modal = document.createElement('div');
+            modal.style.position = 'fixed';
+            modal.style.top = '0';
+            modal.style.left = '0';
+            modal.style.width = '100%';
+            modal.style.height = '100%';
+            modal.style.backgroundColor = 'rgba(0,0,0,0.8)';
+            modal.style.display = 'flex';
+            modal.style.alignItems = 'center';
+            modal.style.justifyContent = 'center';
+            modal.style.zIndex = '10000';
+            modal.style.backdropFilter = 'blur(5px)';
+            modal.innerHTML = `
+                <div style="background: var(--card); max-width: 400px; padding: 30px; border-radius: 20px; text-align: center; border: 1px solid var(--primary);">
+                    <h2 style="color: var(--gold);">🔥 War Room Activado</h2>
+                    <p>Música de fondo con control flotante.<br>Efectos de dardo al hacer clic.<br>¡El MVP brilla con fuego real!</p>
+                    <button id="closeModalWar" style="background: var(--primary); border: none; padding: 10px 20px; border-radius: 30px; color: white; font-weight: bold; cursor: pointer;">Entendido, ¡a darlo todo!</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            document.getElementById('closeModalWar').addEventListener('click', () => {
+                modal.remove();
+                localStorage.setItem('yatedarts_welcome', 'true');
+            });
+        }
     </script>
 </body>
 </html>
