@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>YATEDARTS | War Room - Elite Performance Center</title>
+    <title>YATEDARTS | Elite Performance Center</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
@@ -23,20 +23,6 @@
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            transition: background 0.3s;
-        }
-
-        body.light {
-            background: linear-gradient(rgba(240, 240, 255, 0.85), rgba(220, 220, 250, 0.9)), url('pub_yatedigo.jpg');
-            color: #1a1a2e;
-        }
-        body.light .card {
-            background: rgba(255, 255, 255, 0.7);
-            color: #1a1a2e;
-        }
-        body.light .motivation-box {
-            background: rgba(0,0,0,0.05);
-            color: #1a1a2e;
         }
         
         .navbar { 
@@ -99,66 +85,7 @@
 
         .motivation-box { line-height: 1.7; color: #dee2e6; font-size: 1rem; border-left: 4px solid var(--primary); padding-left: 20px; background: rgba(255,255,255,0.03); padding: 20px; border-radius: 0 15px 15px 0; }
         
-        /* EFECTO FUEGO MVP */
-        .fire-effect {
-            display: inline-block;
-            font-size: 2.2rem;
-            font-weight: 900;
-            background: linear-gradient(45deg, #ff4d00, #ffaa00, #ff4d00);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 5px #ff4d00, 0 0 15px #ff4d00;
-            animation: firePulse 0.8s infinite alternate, fireShake 0.3s infinite;
-            position: relative;
-        }
-        .fire-effect::before {
-            content: attr(data-text);
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            filter: blur(8px);
-            background: radial-gradient(circle, #ff8800, #ff3300);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            z-index: -1;
-            opacity: 0.8;
-        }
-        @keyframes firePulse {
-            0% { text-shadow: 0 0 3px #ff4d00, 0 0 6px #ff4d00; }
-            100% { text-shadow: 0 0 15px #ff8800, 0 0 25px #ff3300; }
-        }
-        @keyframes fireShake {
-            0% { transform: translate(0, 0); }
-            25% { transform: translate(-1px, 0.5px); }
-            75% { transform: translate(1px, -0.5px); }
-            100% { transform: translate(0, 0); }
-        }
-        .mvp-fire {
-            display: inline-block;
-            margin: 0;
-            padding: 0;
-        }
-
         footer { font-size: 0.75rem; color: #666; margin-top: 30px; text-align: center; padding: 15px; }
-
-        .theme-toggle {
-            background: rgba(255,255,255,0.2);
-            border: none;
-            padding: 6px 12px;
-            border-radius: 30px;
-            color: white;
-            cursor: pointer;
-            font-size: 0.7rem;
-            margin-left: 10px;
-        }
-        body.light .theme-toggle {
-            background: rgba(0,0,0,0.2);
-            color: #1a1a2e;
-        }
     </style>
 </head>
 <body>
@@ -167,8 +94,7 @@
         <button class="nav-btn active" onclick="openTab('individual')">👤 Perfiles</button>
         <button class="nav-btn" onclick="openTab('global')">📈 Evolución</button>
         <button class="nav-btn" onclick="openTab('historico')">📅 Histórico</button>
-        <button class="nav-btn" onclick="openTab('scouting')">⚔️ Modo Batalla J2</button>
-        <button class="theme-toggle" id="themeToggleWar">🌓 Tema</button>
+        <button class="nav-btn" onclick="openTab('scouting')">⚔️ Modo Batalla J3</button>
     </div>
 
     <div class="container">
@@ -206,7 +132,7 @@
                 <div class="table-wrapper">
                     <table id="teamFeatsTable">
                         <thead>
-                             <tr><th>Cat</th><th>Hazaña</th><th style="text-align:right;">Total</th><th>Líderes</th></tr>
+                            <tr><th>Cat</th><th>Hazaña</th><th style="text-align:right;">Total</th><th>Líderes</th></tr>
                         </thead>
                         <tbody></tbody>
                     </table>
@@ -227,11 +153,12 @@
                 <div class="table-wrapper">
                     <table>
                         <thead>
-                             <tr><th>J</th><th>Rival</th><th>Resultado</th><th>Status</th></tr>
+                            <tr><th>J</th><th>Rival</th><th>Resultado</th><th>Status</th></tr>
                         </thead>
                         <tbody>
-                             <tr><td>1</td><td>La Peña de la Paca</td><td style="color:var(--success); font-weight:900;">6 - 4</td><td>✅ Victoria</td></tr>
-                            <tr style="opacity: 0.3;"><td>2</td><td>Cerveza Aquí</td><td>--</td><td>Próximamente</td></tr>
+                            <tr><td>1</td><td>La Peña de la Paca</td><td style="color:var(--success); font-weight:900;">6 - 4</td><td>✅ Victoria</td></tr>
+                            <tr><td>2</td><td>Cerveza Aquí</td><td style="color:var(--success); font-weight:900;">7 - 3</td><td>✅ Victoria</td></tr>
+                            <tr style="opacity: 0.3;"><td>3</td><td>Arkadios Errantes</td><td>--</td><td>Próximamente</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -240,11 +167,11 @@
 
         <div id="scouting" class="tab-content">
             <div class="card">
-                <h2 style="text-align:center; color: var(--primary);">⚔️ WAR ROOM: JORNADA 2</h2>
+                <h2 style="text-align:center; color: var(--primary);">⚔️ WAR ROOM: JORNADA 3</h2>
                 <div style="display:flex; justify-content: space-around; align-items: center; margin-bottom: 30px; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px;">
-                    <div style="text-align:center;"><h3 style="margin:0;">YATEDARTS</h3><small style="color:var(--success);">PPD: 27.45</small></div>
+                    <div style="text-align:center;"><h3 style="margin:0;">YATEDARTS</h3><small style="color:var(--success);">PPD: 24.41</small></div>
                     <div style="font-size: 1.5rem; font-weight: 900; color: var(--primary);">VS</div>
-                    <div style="text-align:center;"><h3 style="margin:0;">CERVEZA AQUÍ</h3><small style="color:var(--danger);">PPD: 25.40</small></div>
+                    <div style="text-align:center;"><h3 style="margin:0;">ARKADIOS ERRANTES</h3><small style="color:var(--danger);">PPD: 23.32</small></div>
                 </div>
 
                 <div id="h2hBattleContent">
@@ -252,19 +179,19 @@
                         <div class="battle-val val-win">1</div><div class="battle-label">EYE</div><div class="battle-val val-lose">0</div>
                     </div>
                     <div class="battle-row">
-                        <div class="battle-val val-win">4</div><div class="battle-label">HAT</div><div class="battle-val val-lose">1</div>
+                        <div class="battle-val val-win">6</div><div class="battle-label">HAT</div><div class="battle-val val-lose">2</div>
                     </div>
                     <div class="battle-row">
-                        <div class="battle-val val-win">19</div><div class="battle-label">LOW TON</div><div class="battle-val val-lose">8</div>
+                        <div class="battle-val val-win">32</div><div class="battle-label">LOW TON</div><div class="battle-val val-lose">7</div>
                     </div>
                     <div class="battle-row">
-                        <div class="battle-val val-lose">3</div><div class="battle-label">7M+</div><div class="battle-val val-win">4</div>
+                        <div class="battle-val val-win">8</div><div class="battle-label">7M+</div><div class="battle-val val-lose">1</div>
                     </div>
                 </div>
 
                 <div class="card" style="background: rgba(255,77,77,0.15); border-color: var(--primary); margin-top: 20px;">
-                    <h4>🎯 Análisis de Probabilidades</h4>
-                    <p style="font-size: 0.9rem;"><strong>Probabilidad de ganar 501: 72%.</strong> Nuestra pegada inicial es superior. Si Agustín y José mantienen el ritmo de 29+ PPD, ellos no podrán cerrar a tiempo. <br><br><strong>Peligro en Cricket:</strong> Ellos tienen un ligero margen superior en marcas 7M. Debemos forzar el error de su jugador 3 y 4, que promedian menos de 2.0 MPR.</p>
+                    <h4>🎯 Análisis de Probabilidades (J3)</h4>
+                    <p style="font-size: 0.9rem;"><strong>Probabilidad de ganar: 85%.</strong> Arkadios Errantes tiene dificultades serias en el cierre de 501. Si mantenemos nuestro volumen de Low Tons (tenemos más del cuádruple que ellos), no tendrán opción. <br><br><strong>Dominio de Cricket:</strong> Alejandro Souto y Elias Ramírez promedian por encima de 2.75 MPR. Arkadios promedia 2.46. Si aseguramos el T20 y T19, el set se cerrará rápidamente.</p>
                 </div>
             </div>
         </div>
@@ -275,38 +202,40 @@
         © 2026 YATEDARTS Analytics. Todos los derechos reservados. | Sede Oficial: PUB YATEDIGO
     </footer>
 
-    <!-- Control de música flotante -->
-    <div id="musicControl" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); border-radius: 50px; padding: 10px 20px; display: flex; align-items: center; gap: 12px; cursor: pointer; border: 1px solid var(--primary);">
-        <span id="musicIcon">🔊</span>
-        <span id="musicStatus" style="font-size: 0.8rem;">Activar música</span>
-    </div>
-
     <script>
-        // ========== DATOS DE JUGADORES ==========
         const players = [
             { 
-                id: 0, name: "Agustín Díaz", ppd: [31.18], mpr: [2.46], color: "#ff4d4d", comb: 55.78,
-                feats: { EYE: 1, HAT: 2, LT: 7, "6M": 1, "5M": 1 },
-                motivation: "Agustín, has firmado un debut de categoría 'Máster'. Tu PPD de 31.18 no es solo el mejor del equipo, es de los mejores del Grupo 030. Haber conseguido el único EYE del equipo te coloca como el francotirador designado. Estadísticamente, tienes un 85% de probabilidad de ganar cualquier apertura de 501. Tu punto a pulir: en Cricket (2.46) tienes margen de mejora para asfixiar al rival con triples. Si en la J2 subes a 2.60 MPR, serás imparable."
+                id: 0, name: "Agustín Díaz", ppd: [31.18, 30.26], mpr: [2.46, 2.70], color: "#ff4d4d",
+                feats: { EYE: 1, HAT: 2, LT: 13, "6M": 2, "5M": 2 },
+                motivation: "Agustín, tu volumen de juego es de otro planeta. Has sumado 6 Low Tons contra Cerveza Aquí. Aunque tu PPD total bajó ligeramente, tu precisión en Cricket ha subido a 2.70 MPR. Eres el martillo del equipo: cuando tú puntúas, el rival se rinde."
             },
             { 
-                id: 1, name: "José Alejandro", ppd: [29.12], mpr: [2.64], color: "#00d4ff", comb: 55.52,
-                feats: { HAT: 2, LT: 3, "7M": 1, "6M": 1, "5M": 2 },
-                motivation: "José, eres el motor táctico. Tu COMB de 55.52 demuestra una estabilidad asombrosa. Con 2 Hat Tricks y un 7M en la primera jornada, eres el jugador que equilibra la balanza. Tu probabilidad de remontar una partida de Cricket es la más alta del equipo gracias a tu 2.64 MPR. Mantén esa frialdad en los cierres; el equipo depende de tu capacidad para puntuar y marcar simultáneamente."
+                id: 1, name: "José Alejandro", ppd: [29.12, 29.32], mpr: [2.64, 2.76], color: "#00d4ff",
+                feats: { HAT: 3, LT: 3, "7M": 1, "6M": 1, "5M": 4 },
+                motivation: "José, eres la definición de regularidad. Has subido tanto en PPD como en MPR respecto a la jornada inaugural. Con un 2.76 acumulado en Cricket estás en el Top de la liga. Sigue así, eres el seguro de vida del equipo en los momentos de presión."
             },
             { 
-                id: 2, name: "David Casaseca", ppd: [26.50], mpr: [2.69], color: "#ffd700", comb: 53.40,
-                feats: { LT: 6, "7M": 2, "5M": 1 },
-                motivation: "David, has demostrado ser el 'Cirujano' del Cricket. Esos 2.69 MPR son una pesadilla para el rival; estadísticamente cierras los números clave 1.5 rondas antes que la media de la liga. Tus 2 marcas de 7M te coronan como el estratega del equipo. Para la J2, el objetivo es subir ese PPD a 28.0; si consigues esa pegada en 501, tu contribución al COMB global nos hará líderes indiscutibles."
+                id: 2, name: "David Casaseca", ppd: [26.50, 26.72], mpr: [2.69, 2.65], color: "#ffd700",
+                feats: { LT: 7, "7M": 2, "5M": 1 },
+                motivation: "David, el 'Cirujano' del Cricket. Mantienes una media de marcas impecable. Has sumado un Low Ton clave en la victoria de la J2. Tu control táctico sobre los números altos nos permite respirar en las partidas de parejas."
             },
             { 
-                id: 3, name: "Elias Ramírez", ppd: [21.14], mpr: [2.66], color: "#4ade80", comb: 47.74,
-                feats: { LT: 3, "5M": 2 },
-                motivation: "Elias, eres el 'Factor X'. Aunque tu PPD en la J1 fue de 21.14, tu rendimiento en Cricket con 2.66 MPR fue vital para amarrar partidas críticas. Tienes una consistencia de marcas superior a la de los jugadores titulares de la mayoría de equipos rivales. Si logras concentrar tu puntería en el T20 durante el 501, tu progresión será la que más sorprenda en la J2. ¡Eres el muro donde rebotan los ataques rivales!"
+                id: 3, name: "Elias Ramírez", ppd: [21.14, 23.04], mpr: [2.66, 2.78], color: "#4ade80",
+                feats: { LT: 5, HAT: 2, "5M": 5 },
+                motivation: "¡EL MVP DE LA JORNADA! Elias, has despertado al gigante. 2 Hat Tricks contra Cerveza Aquí y una subida brutal en MPR a 2.78. Has pasado de ser un muro defensivo a ser un arma de destrucción masiva. ¡Espectacular!"
+            },
+            {
+                id: 4, name: "Alejandro Souto", ppd: [0, 21.72], mpr: [0, 3.08], color: "#f472b6",
+                feats: { LT: 3, "7M": 2, "6M": 2, "5M": 4 },
+                motivation: "Bienvenido al equipo, Alejandro. Entrar en la liga con un 3.08 de MPR es poner el listón en las nubes. Has aportado marcas de 7M y 6M desde el minuto uno, demostrando que tienes brazo para jugar contra cualquiera. ¡Fichaje estrella!"
+            },
+            {
+                id: 5, name: "Roberto Lorente", ppd: [0, 19.12], mpr: [0, 2.10], color: "#fbbf24",
+                feats: { LT: 0, "5M": 0 },
+                motivation: "Roberto, buen debut en una jornada intensa. Mantener un PPD de 19 y un MPR de 2.10 en tu primera aparición es la base perfecta para crecer. Tu misión ahora es la constancia: sigue así y los Low Tons empezarán a caer solos en la J3."
             }
         ];
 
-        // ========== FUNCIONES DEL PANEL ==========
         const list = document.getElementById('playerList');
         players.forEach(p => { list.innerHTML += `<div class="player-chip" id="chip-${p.id}" onclick="updateDashboard(${p.id})">${p.name}</div>`; });
 
@@ -318,13 +247,14 @@
             document.querySelectorAll('.player-chip').forEach(c => c.classList.remove('selected'));
             document.getElementById(`chip-${id}`).classList.add('selected');
             document.getElementById('pName').innerText = p.name;
-            document.getElementById('pPPD').innerText = p.ppd[0];
-            document.getElementById('pMPR').innerText = p.mpr[0];
+            document.getElementById('pPPD').innerText = p.ppd[p.ppd.length-1];
+            document.getElementById('pMPR').innerText = p.mpr[p.mpr.length-1];
             document.getElementById('pMotivation').innerText = p.motivation;
 
             const hList = document.getElementById('pHazanasList');
             hList.innerHTML = "";
-            ["EYE", "HAT", "LT", "7M", "6M", "5M"].forEach(k => {
+            const keys = ["EYE", "HAT", "LT", "7M", "6M", "5M"];
+            keys.forEach(k => {
                 if(p.feats[k]) hList.innerHTML += `<div class="feat-badge ${k==='EYE'?'feat-eye':'feat-gold'}">${p.feats[k]} x ${k}</div>`;
             });
 
@@ -333,7 +263,7 @@
                 type: 'radar',
                 data: {
                     labels: ['PPD', 'MPR', 'HAT', 'TON', 'MARCAS'],
-                    datasets: [{ label: 'J1 Performance', data: [p.ppd[0], p.mpr[0]*10, (p.feats.HAT||0)*5, (p.feats.LT||0)*2, (p.feats["7M"]||0)*10], borderColor: p.color, backgroundColor: p.color+"33", borderWeight: 3 }]
+                    datasets: [{ label: 'Performance J2', data: [p.ppd[p.ppd.length-1], p.mpr[p.mpr.length-1]*10, (p.feats.HAT||0)*5, (p.feats.LT||0)*2, (p.feats["7M"]||0)*10], borderColor: p.color, backgroundColor: p.color+"33", borderWeight: 3 }]
                 },
                 options: { responsive: true, scales: { r: { grid:{color:'#333'}, pointLabels:{color:'#fff', font:{size:11, weight:'bold'}}, ticks:{display:false} } }, plugins: { legend: { display: false } } }
             });
@@ -357,8 +287,8 @@
 
         function initGlobal() {
             const config = (ctx, ds) => new Chart(ctx, { type: 'line', data: { labels: ['J1', 'J2'], datasets: ds }, options: { responsive: true, scales: { y:{ ticks:{color:'#fff'} }, x:{ ticks:{color:'#fff'} } }, plugins: { legend: { labels: { color: '#fff', font: {size: 11} } } } } });
-            config(document.getElementById('chartGlobalPPD'), players.map(p => ({ label: p.name, data: [p.ppd[0], null], borderColor: p.color, tension: 0.3 })));
-            config(document.getElementById('chartGlobalMPR'), players.map(p => ({ label: p.name, data: [p.mpr[0], null], borderColor: p.color, tension: 0.3 })));
+            config(document.getElementById('chartGlobalPPD'), players.map(p => ({ label: p.name, data: p.ppd, borderColor: p.color, tension: 0.3 })));
+            config(document.getElementById('chartGlobalMPR'), players.map(p => ({ label: p.name, data: p.mpr, borderColor: p.color, tension: 0.3 })));
         }
 
         function openTab(name) {
@@ -366,138 +296,10 @@
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(name).classList.add('active');
             event.currentTarget.classList.add('active');
-            playDart();
         }
 
-        // ========== MVP con efecto FUEGO ==========
-        function getMVP() {
-            return players.reduce((prev, curr) => (curr.comb > prev.comb) ? curr : prev);
-        }
-
-        function injectFireMVP() {
-            const mvp = getMVP();
-            let banner = document.querySelector('.mvp-banner');
-            if (!banner) {
-                banner = document.createElement('div');
-                banner.className = 'card mvp-banner';
-                banner.style.marginBottom = '20px';
-                banner.style.textAlign = 'center';
-                banner.style.background = 'rgba(0,0,0,0.5)';
-                const container = document.querySelector('.container');
-                container.insertBefore(banner, container.firstChild);
-            }
-            banner.innerHTML = `<span class="mvp-fire"><span class="fire-effect" data-text="🏆 ${mvp.name}">🏆 ${mvp.name}</span></span><br><small>MVP de la Jornada 1 | COMB ${mvp.comb}</small>`;
-        }
-
-        // ========== MÚSICA PERSISTENTE CON AUTO-PLAY A LOS 3 SEGUNDOS ==========
-        let audio = null;
-        let isPlaying = false;
-        const musicControl = document.getElementById('musicControl');
-        const musicIcon = document.getElementById('musicIcon');
-        const musicStatus = document.getElementById('musicStatus');
-
-        function updateMusicUI() {
-            if (isPlaying) {
-                musicIcon.innerText = '🔊';
-                musicStatus.innerText = 'Música ON';
-                musicControl.style.borderColor = '#4ade80';
-            } else {
-                musicIcon.innerText = '🔇';
-                musicStatus.innerText = 'Música OFF';
-                musicControl.style.borderColor = 'var(--primary)';
-            }
-        }
-
-        function initAudio() {
-            if (audio) return;
-            audio = new Audio('Dartstema.mp3');
-            audio.loop = true;
-            audio.volume = 0.3;
-            const saved = localStorage.getItem('yatedarts_music');
-            if (saved === 'playing') {
-                audio.play().catch(() => {});
-                isPlaying = true;
-                updateMusicUI();
-            }
-        }
-
-        setTimeout(() => {
-            if (!audio) {
-                audio = new Audio('Dartstema.mp3');
-                audio.loop = true;
-                audio.volume = 0.3;
-            }
-            if (isPlaying) return;
-            audio.play().then(() => {
-                isPlaying = true;
-                updateMusicUI();
-                localStorage.setItem('yatedarts_music', 'playing');
-            }).catch(e => {
-                console.log("Auto-play bloqueado. Usa el botón para activar.");
-                const toast = document.createElement('div');
-                toast.innerText = '🎵 Haz clic en el botón flotante para activar la música';
-                toast.style.position = 'fixed';
-                toast.style.bottom = '90px';
-                toast.style.right = '20px';
-                toast.style.background = 'rgba(0,0,0,0.7)';
-                toast.style.color = 'white';
-                toast.style.padding = '8px 15px';
-                toast.style.borderRadius = '20px';
-                toast.style.fontSize = '0.8rem';
-                toast.style.zIndex = '10000';
-                toast.style.backdropFilter = 'blur(5px)';
-                document.body.appendChild(toast);
-                setTimeout(() => toast.remove(), 5000);
-            });
-        }, 3000);
-
-        musicControl.addEventListener('click', () => {
-            if (!audio) {
-                audio = new Audio('Dartstema.mp3');
-                audio.loop = true;
-                audio.volume = 0.3;
-            }
-            if (isPlaying) {
-                audio.pause();
-                isPlaying = false;
-                localStorage.setItem('yatedarts_music', 'paused');
-            } else {
-                audio.play().catch(e => console.log("Error al reproducir", e));
-                isPlaying = true;
-                localStorage.setItem('yatedarts_music', 'playing');
-            }
-            updateMusicUI();
-        });
-
-        initAudio();
-
-        // ========== EFECTOS DE SONIDO ==========
-        const dartSound = new Audio('dardo.mp3');
-        dartSound.volume = 0.2;
-        function playDart() {
-            const clone = dartSound.cloneNode();
-            clone.play().catch(() => {});
-        }
-
-        document.querySelectorAll('.nav-btn, .player-chip, .theme-toggle').forEach(btn => {
-            btn.addEventListener('click', playDart);
-        });
-
-        // ========== TEMA CLARO/OSCURO ==========
-        const body = document.body;
-        const savedTheme = localStorage.getItem('yatedarts_theme');
-        if (savedTheme === 'light') body.classList.add('light');
-        document.getElementById('themeToggleWar').addEventListener('click', () => {
-            body.classList.toggle('light');
-            const isLight = body.classList.contains('light');
-            localStorage.setItem('yatedarts_theme', isLight ? 'light' : 'dark');
-            playDart();
-        });
-
-        // ========== INICIALIZAR ==========
         updateDashboard(0);
         initGlobal();
-        injectFireMVP();
     </script>
 </body>
 </html>
