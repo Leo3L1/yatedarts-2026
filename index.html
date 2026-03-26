@@ -24,28 +24,6 @@
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            transition: background 0.3s, color 0.3s;
-        }
-
-        /* Tema claro */
-        body.light {
-            background: linear-gradient(rgba(240, 240, 255, 0.85), rgba(220, 220, 250, 0.9)), url('pub_yatedigo.jpg');
-            color: #1a1a2e;
-        }
-        body.light .card {
-            background: rgba(255, 255, 255, 0.7);
-            color: #1a1a2e;
-        }
-        body.light th {
-            background: rgba(0,0,0,0.1);
-            color: #ff4d4d;
-        }
-        body.light td {
-            border-bottom-color: rgba(0,0,0,0.1);
-        }
-        body.light .cta-btn {
-            background: linear-gradient(135deg, #ff4d4d, #b31217);
-            color: white;
         }
 
         .container { width: 95%; max-width: 1100px; margin: auto; padding: 20px 0; }
@@ -58,10 +36,9 @@
             border: 1px solid rgba(255,255,255,0.1); 
             text-align: center; 
             box-shadow: 0 20px 60px rgba(0,0,0,0.8); 
-            transition: background 0.3s;
         }
         
-        .header-box { display: flex; justify-content: center; align-items: center; margin-bottom: 30px; gap: 15px;}
+        .header-box { display: flex; flex-direction: column; justify-content: center; align-items: center; margin-bottom: 30px; gap: 15px;}
         .logo-img { width: 90px; height: 90px; object-fit: contain; border-radius: 15px; border: 2px solid var(--primary); background: rgba(0,0,0,0.6); padding: 5px; }
         
         h1 { font-size: 2.8rem; letter-spacing: 4px; color: #fff; text-shadow: 0 0 15px var(--primary); text-transform: uppercase; margin: 0; }
@@ -71,7 +48,7 @@
         th { background: rgba(0,212,255,0.08); color: var(--accent); padding: 15px; font-size: 0.75rem; text-transform: uppercase; text-align: left; }
         td { padding: 14px 15px; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 0.95rem; text-align: left;}
         
-        .rank-1 { background: rgba(255,215,0,0.08); font-weight: bold; }
+        .rank-top { background: rgba(255,215,0,0.08); font-weight: bold; }
         .comb-cell { color: var(--success); font-weight: 900; text-align: right; }
         .val-right { text-align: right; }
 
@@ -83,188 +60,57 @@
             .comb-cell { font-size: 0.9rem; }
         }
 
-        .cta-wrapper { display: flex; justify-content: center; margin: 30px 0; gap: 20px; flex-wrap: wrap; }
-        .cta-btn, .theme-toggle { 
+        .cta-wrapper { display: flex; justify-content: center; margin: 30px 0; }
+        .cta-btn { 
             background: linear-gradient(135deg, var(--primary), #b31217); 
-            color: white; padding: 12px 25px; border-radius: 50px; 
-            font-weight: 900; font-size: 1rem; text-decoration: none; 
+            color: white; padding: 18px 40px; border-radius: 50px; 
+            font-weight: 900; font-size: 1.2rem; text-decoration: none; 
             text-transform: uppercase; box-shadow: 0 10px 25px rgba(255,77,77,0.4);
-            transition: 0.3s; border: none; cursor: pointer;
+            transition: 0.3s; border: 1px solid rgba(255,255,255,0.2);
         }
-        .cta-btn:hover, .theme-toggle:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(255,77,77,0.6); }
-        .theme-toggle { background: rgba(255,255,255,0.2); color: var(--text); }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(255,77,77,0.6); }
 
         footer { font-size: 0.75rem; color: #666; margin-top: 20px; text-align: center; }
     </style>
 </head>
 <body>
-
 <div class="container">
     <div class="card">
         <div class="header-box">
             <img src="logo_equipo.png" alt="Logo" class="logo-img" onerror="this.style.visibility='hidden'">
             <div>
                 <h1>YATEDARTS</h1>
-                <p style="margin:5px 0; color: var(--accent); font-weight: bold; font-size: 0.9rem;">Líderes Grupo 030 | Temporada 2026</p>
+                <p style="margin:5px 0; color: var(--accent); font-weight: bold; font-size: 0.9rem;">2º Clasificado | Grupo 030 | Jornada 2</p>
             </div>
         </div>
-
         <div class="table-container">
-             <table>
+            <table>
                 <thead>
-                     <tr>
+                    <tr>
                         <th>Pos</th>
                         <th>Equipo</th>
                         <th class="val-right">COMB</th>
                         <th class="val-right hide-mobile">PPD</th>
                         <th class="val-right hide-mobile">MPR</th>
                         <th class="val-right">Ptos</th>
-                     </tr>
+                    </tr>
                 </thead>
                 <tbody>
-                    <tr class="rank-1"><td>1</td><td>YATEDARTS</td><td class="comb-cell">53.65</td><td class="val-right hide-mobile">27.45</td><td class="val-right hide-mobile">2.62</td><td class="val-right" style="color:var(--gold)">2</td></tr>
-                    <tr><td>2</td><td>LOS FARGONITAS</td><td class="val-right" style="font-weight:bold">50.83</td><td class="val-right hide-mobile">24.43</td><td class="val-right hide-mobile">2.64</td><td class="val-right">2</td></tr>
-                    <tr><td>3</td><td>SANTACATA</td><td class="val-right">51.36</td><td class="val-right hide-mobile">25.86</td><td class="val-right hide-mobile">2.55</td><td class="val-right">1</td></tr>
-                    <tr><td>4</td><td>CERVEZA AQUÍ</td><td class="val-right">50.70</td><td class="val-right hide-mobile">25.40</td><td class="val-right hide-mobile">2.53</td><td class="val-right">1</td></tr>
-                    <tr><td>5</td><td>PEÑA DE LA PACA</td><td class="val-right">46.29</td><td class="val-right hide-mobile">22.59</td><td class="val-right hide-mobile">2.37</td><td class="val-right">0</td></tr>
-                    <tr><td>6</td><td>ARKADIOS ERRANTES</td><td class="val-right" style="font-weight:bold">45.54</td><td class="val-right hide-mobile">22.04</td><td class="val-right hide-mobile">2.35</td><td class="val-right">0</td></tr>
-                    <tr style="opacity: 0.3;"><td>7</td><td>ELIPTICO B</td><td class="val-right">--</td><td class="val-right hide-mobile">--</td><td class="val-right hide-mobile">--</td><td class="val-right">0</td></tr>
-                    <tr style="opacity: 0.3;"><td>8</td><td>BEEPS VAPORUB</td><td class="val-right">--</td><td class="val-right hide-mobile">--</td><td class="val-right hide-mobile">--</td><td class="val-right">0</td></tr>
+                    <tr><td>1</td><td>BEEPS VAPORUB</td><td class="val-right">54.99</td><td class="val-right hide-mobile">25.19</td><td class="val-right hide-mobile">2.98</td><td class="val-right">4</td></tr>
+                    <tr class="rank-top"><td>2</td><td>YATEDARTS</td><td class="comb-cell">50.91</td><td class="val-right hide-mobile">24.41</td><td class="val-right hide-mobile">2.65</td><td class="val-right" style="color:var(--gold)">4</td></tr>
+                    <tr><td>3</td><td>LA PEÑA DE LA PACA</td><td class="val-right">46.29</td><td class="val-right hide-mobile">22.59</td><td class="val-right hide-mobile">2.37</td><td class="val-right">2</td></tr>
+                    <tr><td>4</td><td>LOS FARGONITAS</td><td class="val-right">51.41</td><td class="val-right hide-mobile">24.91</td><td class="val-right hide-mobile">2.65</td><td class="val-right">2</td></tr>
+                    <tr><td>5</td><td>SANTACATA</td><td class="val-right">51.13</td><td class="val-right hide-mobile">24.73</td><td class="val-right hide-mobile">2.64</td><td class="val-right">2</td></tr>
+                    <tr><td>6</td><td>ARKADIOS ERRANTES</td><td class="val-right">47.92</td><td class="val-right hide-mobile">23.32</td><td class="val-right hide-mobile">2.46</td><td class="val-right">0</td></tr>
+                    <tr style="opacity: 0.3;"><td>7</td><td>CERVEZA AQUÍ</td><td class="val-right">50.27</td><td class="val-right hide-mobile">21.68</td><td class="val-right hide-mobile">2.85</td><td class="val-right">0</td></tr>
+                    <tr style="opacity: 0.3;"><td>8</td><td>ELIPTICO B</td><td class="val-right">49.57</td><td class="val-right hide-mobile">23.27</td><td class="val-right hide-mobile">2.63</td><td class="val-right">0</td></tr>
                 </tbody>
-             </table>
+            </table>
         </div>
-
-        <div class="cta-wrapper">
-            <a href="warroom.html" class="cta-btn">Entrar al War Room</a>
-            <button id="themeToggle" class="theme-toggle">🌙 Cambiar tema</button>
-        </div>
-
+        <div class="cta-wrapper"><a href="warroom.html" class="cta-btn">Entrar al War Room</a></div>
         <p style="margin:0; font-weight: bold; color: var(--gold); text-transform: uppercase; font-size: 0.8rem;">Sede: PUB YATEDIGO</p>
-        <p style="margin:5px 0; font-size: 0.75rem; color: #888;">Club de Dardos Phoenix de Élite | Liga Nacional 2026</p>
-        
-        <footer>
-            © 2026 YATEDARTS Analytics. Todos los derechos reservados.
-        </footer>
+        <footer>© 2026 YATEDARTS Analytics. Todos los derechos reservados.</footer>
     </div>
 </div>
-
-<!-- Control de música flotante -->
-<div id="musicControl" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); border-radius: 50px; padding: 10px 20px; display: flex; align-items: center; gap: 12px; cursor: pointer; border: 1px solid var(--primary);">
-    <span id="musicIcon">🔊</span>
-    <span id="musicStatus" style="font-size: 0.8rem;">Activar música</span>
-</div>
-
-<script>
-    // ===================== MÚSICA PERSISTENTE CON AUTO-PLAY A LOS 3 SEGUNDOS =====================
-    let audio = null;
-    let isPlaying = false;
-    const musicControl = document.getElementById('musicControl');
-    const musicIcon = document.getElementById('musicIcon');
-    const musicStatus = document.getElementById('musicStatus');
-
-    function updateMusicUI() {
-        if (isPlaying) {
-            musicIcon.innerText = '🔊';
-            musicStatus.innerText = 'Música ON';
-            musicControl.style.borderColor = '#4ade80';
-        } else {
-            musicIcon.innerText = '🔇';
-            musicStatus.innerText = 'Música OFF';
-            musicControl.style.borderColor = 'var(--primary)';
-        }
-    }
-
-    function initAudio() {
-        if (audio) return;
-        audio = new Audio('Dartstema.mp3');
-        audio.loop = true;
-        audio.volume = 0.3;
-        // Recuperar estado guardado
-        const saved = localStorage.getItem('yatedarts_music');
-        if (saved === 'playing') {
-            // Intentar reproducir inmediatamente (puede fallar si no hay interacción)
-            audio.play().catch(() => {});
-            isPlaying = true;
-            updateMusicUI();
-        }
-    }
-
-    // Intentar auto-reproducir después de 3 segundos
-    setTimeout(() => {
-        if (!audio) {
-            audio = new Audio('Dartstema.mp3');
-            audio.loop = true;
-            audio.volume = 0.3;
-        }
-        // Si ya está sonando o el estado guardado es 'playing', no forzamos
-        if (isPlaying) return;
-        audio.play().then(() => {
-            isPlaying = true;
-            updateMusicUI();
-            localStorage.setItem('yatedarts_music', 'playing');
-        }).catch(e => {
-            console.log("Auto-play bloqueado por el navegador. Usa el botón para activar la música.");
-            // Mostramos un pequeño aviso no intrusivo (opcional)
-            const toast = document.createElement('div');
-            toast.innerText = '🎵 Haz clic en el botón flotante para activar la música';
-            toast.style.position = 'fixed';
-            toast.style.bottom = '90px';
-            toast.style.right = '20px';
-            toast.style.background = 'rgba(0,0,0,0.7)';
-            toast.style.color = 'white';
-            toast.style.padding = '8px 15px';
-            toast.style.borderRadius = '20px';
-            toast.style.fontSize = '0.8rem';
-            toast.style.zIndex = '10000';
-            toast.style.backdropFilter = 'blur(5px)';
-            document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 5000);
-        });
-    }, 3000);
-
-    musicControl.addEventListener('click', () => {
-        if (!audio) {
-            audio = new Audio('Dartstema.mp3');
-            audio.loop = true;
-            audio.volume = 0.3;
-        }
-        if (isPlaying) {
-            audio.pause();
-            isPlaying = false;
-            localStorage.setItem('yatedarts_music', 'paused');
-        } else {
-            audio.play().catch(e => console.log("Error al reproducir", e));
-            isPlaying = true;
-            localStorage.setItem('yatedarts_music', 'playing');
-        }
-        updateMusicUI();
-    });
-
-    initAudio();
-
-    // ===================== EFECTO DARDO =====================
-    const dartSound = new Audio('dardo.mp3');
-    dartSound.volume = 0.2;
-    function playDart() {
-        const clone = dartSound.cloneNode();
-        clone.play().catch(() => {});
-    }
-
-    document.querySelectorAll('.cta-btn, .theme-toggle').forEach(btn => {
-        btn.addEventListener('click', playDart);
-    });
-
-    // ===================== TEMA CLARO/OSCURO =====================
-    const themeBtn = document.getElementById('themeToggle');
-    const body = document.body;
-    const savedTheme = localStorage.getItem('yatedarts_theme');
-    if (savedTheme === 'light') body.classList.add('light');
-    themeBtn.addEventListener('click', () => {
-        body.classList.toggle('light');
-        const isLight = body.classList.contains('light');
-        localStorage.setItem('yatedarts_theme', isLight ? 'light' : 'dark');
-        playDart();
-    });
-</script>
 </body>
 </html>
