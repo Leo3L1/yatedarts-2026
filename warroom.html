@@ -3,255 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>YATEDARTS | War Room v10.0</title>
+    <title>YATEDARTS | War Room J4</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
-        :root {
-            --primary: #ff4d4d; --accent: #00d4ff; --bg: #0b0b14;
-            --gold: #ffd700; --success: #4ade80; --danger: #ff4b2b;
-            --glass: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-        }
-
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
-        body { 
-            font-family: 'Inter', system-ui, sans-serif; 
-            color: #ffffff; margin: 0; padding-bottom: 20px;
-            background-color: var(--bg); overflow-x: hidden;
-        }
-
-        .wallpaper {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: url('pub_yatedigo.jpg') no-repeat center center;
-            background-size: cover; z-index: -2;
-            animation: focusBackground 6s forwards;
-        }
-        .overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; background: rgba(11, 11, 20, 0.92); backdrop-filter: blur(8px);
-        }
-        @keyframes focusBackground { from { filter: brightness(1); } to { filter: brightness(0.4); } }
-
-        .navbar { 
-            background: rgba(10, 10, 20, 0.8); backdrop-filter: blur(20px);
-            padding: 12px; display: flex; gap: 10px; 
-            position: sticky; top: 0; z-index: 1000; border-bottom: 2px solid var(--primary);
-            overflow-x: auto; scrollbar-width: none;
-        }
-        .navbar::-webkit-scrollbar { display: none; }
-        
-        .nav-btn { 
-            background: rgba(255,255,255,0.05); border: 1px solid var(--primary); color: white; 
-            padding: 12px 24px; cursor: pointer; border-radius: 40px; 
-            font-weight: 900; font-size: 0.8rem; transition: 0.3s; flex-shrink: 0;
-            text-transform: uppercase;
-        }
-        .nav-btn.active { background: var(--primary); box-shadow: 0 0 20px var(--primary); }
-
+        :root { --primary: #ff4d4d; --accent: #00d4ff; --gold: #ffd700; --success: #4ade80; }
+        body { font-family: 'Inter', sans-serif; color: white; background: #0b0b14; margin: 0; }
+        .wallpaper { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('pub_yatedigo.jpg') no-repeat center center; background-size: cover; z-index: -2; filter: brightness(0.3) blur(10px); }
+        .navbar { background: rgba(10, 10, 20, 0.85); backdrop-filter: blur(20px); padding: 12px; display: flex; gap: 10px; position: sticky; top: 0; z-index: 1000; border-bottom: 2px solid var(--primary); overflow-x: auto; scrollbar-width: none; }
+        .nav-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--primary); color: white; padding: 10px 20px; border-radius: 40px; font-weight: 900; cursor: pointer; flex-shrink: 0; text-transform: uppercase; font-size: 0.8rem; }
+        .nav-btn.active { background: var(--primary); box-shadow: 0 0 15px var(--primary); }
         .container { width: 95%; max-width: 1300px; margin: 25px auto; }
-        .tab-content { display: none; animation: fadeIn 0.8s ease; }
-        .tab-content.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
-
-        .card { 
-            background: var(--glass); backdrop-filter: blur(40px);
-            border-radius: 35px; padding: 30px; border: 1px solid var(--glass-border); 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6); margin-bottom: 30px;
-        }
-        
-        /* MVP LEGENDARY */
-        .mvp-card {
-            background: linear-gradient(-45deg, #FFD700, #ff4d4d, #00d4ff, #FFD700);
-            background-size: 400% 400%;
-            animation: gradientAnim 8s ease infinite, pulse 2s infinite alternate;
-            color: #fff; padding: 30px; border-radius: 60px;
-            text-align: center; font-weight: 950; font-size: 1.5rem;
-            border: 4px solid #fff; box-shadow: 0 0 60px rgba(255, 215, 0, 0.5);
-        }
-        @keyframes gradientAnim { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        @keyframes pulse { from { transform: scale(1); } to { transform: scale(1.03); } }
-
-        .player-chip { background: rgba(0,0,0,0.5); padding: 14px 28px; border-radius: 50px; cursor: pointer; border: 2px solid var(--glass-border); white-space: nowrap; font-weight: 800; }
+        .card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(40px); border-radius: 35px; padding: 30px; border: 1px solid rgba(255,255,255,0.08); margin-bottom: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
+        .mvp-badge { background: linear-gradient(45deg, var(--gold), #ff4d4d); padding: 25px; border-radius: 50px; text-align: center; font-weight: 950; font-size: 1.4rem; margin-bottom: 30px; border: 3px solid #fff; animation: pulse 2s infinite alternate; }
+        @keyframes pulse { from { transform: scale(1); } to { transform: scale(1.02); } }
+        .player-chip { background: rgba(0,0,0,0.5); padding: 12px 22px; border-radius: 40px; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); font-weight: 800; white-space: nowrap; margin-right: 10px; }
         .player-chip.selected { border-color: var(--accent); background: rgba(0,212,255,0.2); }
-
-        .motivation-box { line-height: 1.9; color: #ffffff; font-size: 1.05rem; border-left: 8px solid var(--primary); padding: 25px; background: rgba(0,0,0,0.4); border-radius: 0 30px 30px 0; }
-        .motivation-box h4 { color: var(--accent); margin-bottom: 10px; text-transform: uppercase; font-size: 1.2rem; }
-
-        /* SCOUTING J4 vs LÍDER */
-        .scouting-vs { display: flex; justify-content: space-around; align-items: center; margin-bottom: 30px; }
-        .team-box { text-align: center; flex: 1; }
-        .vs-circle { background: var(--primary); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.5rem; box-shadow: 0 0 20px var(--primary); }
+        .motivation-box { line-height: 1.8; padding: 25px; border-left: 6px solid var(--primary); background: rgba(0,0,0,0.3); border-radius: 0 25px 25px 0; }
     </style>
 </head>
 <body onclick="startAudio()">
-
     <div class="wallpaper"></div>
-    <div class="overlay"></div>
-
     <audio id="bgMusic" loop><source src="dartstema.mp3" type="audio/mpeg"></audio>
     <audio id="dardoSound"><source src="dardo.mp3" type="audio/mpeg"></audio>
 
     <div class="navbar">
-        <button class="nav-btn active" onclick="openTab('individual'); playDardo()">👤 PERFILES J4</button>
-        <button class="nav-btn" onclick="openTab('global'); playDardo()">📊 CLASIFICACIÓN</button>
-        <button class="nav-btn" onclick="openTab('scouting'); playDardo()">⚔️ WAR ROOM J5</button>
+        <button class="nav-btn active" onclick="openTab('perfiles'); playDardo()">👤 Perfiles J4</button>
+        <button class="nav-btn" onclick="openTab('clasificacion'); playDardo()">🏆 Clasificación</button>
+        <button class="nav-btn" onclick="openTab('scouting'); playDardo()">⚔️ War Room J5</button>
     </div>
 
     <div class="container">
-        
-        <div id="individual" class="tab-content active">
-            <div class="mvp-card">🏆 LÍDER RANKING J4: JOSÉ ALEJANDRO · COMB 57.06 🏆</div>
-
-            <div class="selector-ui" style="display:flex; gap:12px; overflow-x:auto; padding-bottom:15px; scrollbar-width:none;" id="playerList">
-                <div class="player-chip" onclick="showTeamFeats(); playDardo()">📊 MEDALLERO EQUIPO</div>
-            </div>
-
-            <div id="singlePlayerContent" class="grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px;">
+        <div id="perfiles" class="tab-content active">
+            <div class="mvp-badge">🏆 TOP #20 RANKING GENERAL: JOSÉ ALEJANDRO 🏆</div>
+            <div style="display:flex; overflow-x:auto; padding-bottom:15px; margin-bottom:20px;" id="playerList"></div>
+            
+            <div id="singlePlayerContent" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px;">
                 <div class="card">
-                    <h2 id="pName" style="color: var(--accent); font-size: 2.2rem; margin-top:0;">Jugador</h2>
-                    <div style="display: flex; gap: 20px; margin: 30px 0;">
-                        <div style="background: rgba(0,0,0,0.6); padding: 25px; border-radius: 30px; flex:1; text-align:center; border: 1px solid var(--glass-border);">
-                            <span style="font-size: 0.8rem; color: var(--accent); font-weight: bold; text-transform: uppercase;">PPD General</span>
-                            <strong id="pPPD" style="font-size: 2.5rem; display: block; color: #fff;">-</strong>
+                    <h2 id="pName" style="color: var(--accent); margin-top:0;">Jugador</h2>
+                    <div style="display: flex; gap: 15px; margin: 20px 0;">
+                        <div style="background: rgba(0,0,0,0.5); padding: 20px; border-radius: 20px; flex:1; text-align:center;">
+                            <span style="font-size: 0.75rem; color: var(--accent);">PPD</span>
+                            <strong id="pPPD" style="font-size: 2rem; display: block;">-</strong>
                         </div>
-                        <div style="background: rgba(0,0,0,0.6); padding: 25px; border-radius: 25px; flex:1; text-align:center; border: 1px solid var(--glass-border);">
-                            <span style="font-size: 0.8rem; color: var(--accent); font-weight: bold; text-transform: uppercase;">MPR General</span>
-                            <strong id="pMPR" style="font-size: 2.5rem; display: block; color: #fff;">-</strong>
+                        <div style="background: rgba(0,0,0,0.5); padding: 20px; border-radius: 20px; flex:1; text-align:center;">
+                            <span style="font-size: 0.75rem; color: var(--accent);">MPR</span>
+                            <strong id="pMPR" style="font-size: 2rem; display: block;">-</strong>
                         </div>
                     </div>
-                    <canvas id="individualRadar" style="max-height: 300px;"></canvas>
+                    <canvas id="radarChart"></canvas>
                 </div>
                 <div class="card">
-                    <h3 style="margin-top:0;">🎖️ Hazañas Acumuladas</h3>
-                    <div id="pHazanasList" style="margin: 20px 0;"></div>
+                    <h3>🎖️ Informe de Situación</h3>
                     <div id="pMotivation" class="motivation-box"></div>
                 </div>
             </div>
-
-            <div id="teamFeatsSummary" class="card" style="display:none;">
-                <h2 style="text-align:center; color: var(--gold); font-size: 2rem; margin-bottom: 30px;">🏅 MEDALLERO TOTAL J4</h2>
-                <div id="teamFeatsContent"></div>
-            </div>
         </div>
 
-        <div id="global" class="tab-content">
+        <div id="clasificacion" class="tab-content" style="display:none;">
             <div class="card">
-                <h2 style="text-align:center; color: var(--accent);">📊 CLASIFICACIÓN GRUPO 030 (J4)</h2>
-                <table style="width:100%; border-collapse: collapse; margin-top:20px;">
-                    <tr style="border-bottom: 2px solid var(--primary); color: var(--accent); font-weight: 800; text-transform: uppercase; font-size: 0.8rem;">
-                        <th style="padding:15px; text-align:left;">POS</th><th style="text-align:left;">EQUIPO</th><th style="text-align:center;">COMB</th><th style="text-align:right;">PTS</th>
-                    </tr>
-                    <tr style="border-bottom: 1px solid var(--glass-border);">
-                        <td style="padding:15px;">1</td><td>BEEPS VAPORUB</td><td style="text-align:center;">54.14</td><td style="text-align:right;">8</td>
-                    </tr>
-                    <tr style="background: rgba(0,212,255,0.1); font-weight: 900;">
-                        <td style="padding:15px; color:var(--gold);">2</td><td>YATEDARTS</td><td style="text-align:center;">51.14</td><td style="text-align:right;">8</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid var(--glass-border);">
-                        <td style="padding:15px;">3</td><td>LA PEÑA DE LA PACA</td><td style="text-align:center;">49.12</td><td style="text-align:right;">4</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-
-        <div id="scouting" class="tab-content">
-            <div class="card">
-                <h2 style="text-align:center; color: var(--primary);">⚔️ WAR ROOM: ANÁLISIS J4 vs BEEPS</h2>
-                <div class="scouting-vs">
-                    <div class="team-box"><h3>YATEDARTS</h3><p style="color:var(--success)">PPD 24.64</p></div>
-                    <div class="vs-circle">VS</div>
-                    <div class="team-box"><h3>BEEPS VAPORUB</h3><p style="color:var(--danger)">MPR 3.01</p></div>
-                </div>
-                <div class="motivation-box">
-                    <h4>📝 LECCIONES DEL LIDERATO</h4>
-                    <p>En la J4 contra Beeps (3-7), nuestra pegada de **24.64 PPD** fue superior a la suya (**24.04**), pero ellos nos ganaron en el "volumen de marcas" (**3.01 vs 2.65**). <br><br><b>Clave J5:</b> Debemos recuperar el dominio del Cricket. **Souto (3.02 MPR)** y **Jose Alejandro (2.94 MPR)** son nuestras mejores bazas para contrarrestar a equipos que cierran rápido. Seguimos colíderes por puntos, ¡la liga está en un pañuelo!</p>
+                <h2>Estado de Liga - Jornada 4</h2>
+                <p>Mantenemos la <b>2ª posición</b> con 8 puntos, empatados con el líder.</p>
+                <div style="background: rgba(0,212,255,0.1); padding: 20px; border-radius: 20px; margin-top: 20px;">
+                    <p>Pegada del Equipo (J1-J4): <b>60 Low Tons</b> acumulados.</p>
+                    <p>Media Combinada: <b>51.14</b></p>
                 </div>
             </div>
         </div>
-
     </div>
-
-    <footer>© 2026 YATEDARTS Analytics | Ranking Oficial J4</footer>
 
     <script>
         const players = [
-            { 
-                id: 0, name: "José Alejandro", ppd: 27.66, mpr: 2.94, color: "#00d4ff",
-                feats: { HAT: 4, LT: 8, "7M": 3, "6M": 4, "5M": 9 },
-                motivation: "<h4>🔥 El General del Ranking</h4>José, has escalado hasta el <b>Top 7</b> de la general con un COMB de 57.06. Eres el jugador más equilibrado del equipo y nuestro seguro de vida en los momentos calientes. <br><br><b>Punto Fuerte:</b> Tu constancia en el Cricket (2.94 MPR) es lo que nos mantiene vivos ante los líderes."
-            },
-            { 
-                id: 1, name: "Agustín Díaz", ppd: 28.11, mpr: 2.68, color: "#ff4d4d",
-                feats: { HAT: 3, LT: 22, "5M": 10 },
-                motivation: "<h4>💣 El Bombardero Atómico</h4>Agustín, Ranking #11 del grupo. Tus **22 Low Tons** acumulados son la envidia de la liga. En el 501 nadie te tose con ese **28.11 PPD**. <br><br><b>Estrategia J5:</b> Sigue abriendo los sets con esa agresividad; obligas al rival a jugar siempre a remolque."
-            },
-            { 
-                id: 2, name: "Alejandro Souto", ppd: 22.87, mpr: 3.02, color: "#f472b6",
-                feats: { LT: 6, HAT: 2, "7M": 4, "6M": 5, "5M": 8 },
-                motivation: "<h4>🎯 El Sniper del Top 15</h4>Souto, eres el único del equipo con una media general superior a **3.00 MPR**. Tu precisión es quirúrgica. <br><br><b>Punto Fuerte:</b> Eres el antídoto contra el Cricket de Beeps. En la J5, tu misión es cerrar los números altos antes de que el rival respire."
-            },
-            { 
-                id: 3, name: "Elias Ramírez", ppd: 24.32, mpr: 2.72, color: "#4ade80",
-                feats: { LT: 11, HAT: 2, "5M": 6 },
-                motivation: "<h4>⚡ La Bestia Despertada</h4>Elias, te has consolidado en el Top 20. Tu evolución desde la J1 es la más vertical del club. <br><br><b>Punto Fuerte:</b> Tu capacidad de racha; cuando entras en calor, los triples caen solos."
-            },
-            { 
-                id: 4, name: "David Casaseca", ppd: 21.34, mpr: 2.74, color: "#ffd700",
-                feats: { LT: 10, "7M": 2, "5M": 3 },
-                motivation: "<h4>🔭 El Cirujano del Cricket</h4>David, tu **3.32 MPR** en la J3 contra Arkadios fue una obra de arte. Mantienes un nivel táctico envidiable. <br><br><b>Punto Fuerte:</b> Dominio absoluto del T20/T19 para desgastar al rival."
-            },
-            { 
-                id: 5, name: "Roberto Lorente", ppd: 23.44, mpr: 2.19, color: "#fbbf24",
-                feats: { LT: 3, HAT: 1 },
-                motivation: "<h4>🏗️ El Muro de Crecimiento</h4>Roberto, tu progresión es sólida. Has demostrado que puedes puntuar alto en situaciones de estrés. <br><br><b>Consejo Analista:</b> Suelta el brazo en el tiro inicial, tienes calidad para subir ese PPD por encima de 24."
-            }
+            { name: "José Alejandro", ppd: 27.66, mpr: 2.94, rank: 20, color: "#00d4ff", motivation: "<b>EL LÍDER DEL CLUB.</b> José, ocupas el <b>puesto #20</b> del ranking individual. Eres el jugador con el MPR más equilibrado de la plantilla (2.94). Tu papel para la J5 es frenar el avance del rival en el primer individual de Cricket." },
+            { name: "Agustín Díaz", ppd: 28.11, mpr: 2.68, rank: 11, color: "#ff4d4d", motivation: "<b>EL REY DE LA PEGADA.</b> Agustín, con **22 Low Tons**, eres el máximo artillero. En el 501 nadie te tose. Puesto #11 del grupo." },
+            { name: "Roberto Lorente", ppd: 23.44, mpr: 2.19, rank: 33, color: "#fbbf24", motivation: "<b>EL MURO.</b> Roberto, en el <b>puesto #33</b>, tu solidez en los momentos de presión es fundamental. Has demostrado que puedes puntuar alto cuando el partido se aprieta." }
         ];
 
-        let radarChart = null;
+        let chart;
         function playDardo() { const s = document.getElementById('dardoSound'); s.currentTime = 0; s.play(); }
         function startAudio() { const m = document.getElementById('bgMusic'); if(m.paused){ m.volume = 0.2; m.play(); } }
 
         function updateDashboard(idx) {
             const p = players[idx];
-            document.getElementById('singlePlayerContent').style.display = 'grid';
-            document.getElementById('teamFeatsSummary').style.display = 'none';
             document.querySelectorAll('.player-chip').forEach(c => c.classList.remove('selected'));
             document.getElementById(`chip-${idx}`).classList.add('selected');
-            document.getElementById('pName').innerText = p.name;
+            document.getElementById('pName').innerText = p.name + " (#" + p.rank + ")";
             document.getElementById('pPPD').innerText = p.ppd.toFixed(2);
             document.getElementById('pMPR').innerText = p.mpr.toFixed(2);
             document.getElementById('pMotivation').innerHTML = p.motivation;
-            const hList = document.getElementById('pHazanasList'); hList.innerHTML = "";
-            const icons = { HAT: '🎯', LT: '🐘', "7M": '7️⃣', "6M": '6️⃣', "5M": '5️⃣' };
-            for (let [k, icon] of Object.entries(icons)) { if(p.feats[k]) hList.innerHTML += `<div style="background:rgba(255,215,0,0.1); padding:8px 15px; border-radius:40px; display:inline-block; margin:4px; border:1px solid var(--gold); color:var(--gold); font-size:0.8rem; font-weight:900;"> ${icon} ${p.feats[k]} x ${k}</div>`; }
-            if(radarChart) radarChart.destroy();
-            radarChart = new Chart(document.getElementById('individualRadar'), {
-                type: 'radar',
-                data: { labels: ['PPD', 'MPR', 'HATS', 'TONS', 'MARCAS'],
-                         datasets: [{ data: [p.ppd, p.mpr*10, (p.feats.HAT||0)*5, (p.feats.LT||0)*2, (p.feats["7M"]||0)*10], borderColor: p.color, backgroundColor: p.color + '44', borderWidth: 3 }] },
-                options: { scales: { r: { grid: { color: 'rgba(255,255,255,0.1)' }, angleLines: { color: 'rgba(255,255,255,0.1)' }, pointLabels: { color: '#fff' }, ticks: { display: false } } }, plugins: { legend: { display: false } } }
-            });
-        }
 
-        function showTeamFeats() {
-            document.getElementById('singlePlayerContent').style.display = 'none';
-            document.getElementById('teamFeatsSummary').style.display = 'block';
-            document.querySelectorAll('.player-chip').forEach(c => c.classList.remove('selected'));
-            let html = "";
-            players.forEach(p => {
-                let f = ''; for (let [k, v] of Object.entries(p.feats)) if(v>0) f += `<span style="background:#2c3e5c; padding:4px 10px; border-radius:30px; font-size:0.7rem; margin:2px; display:inline-block;">${k} ${v}</span>`;
-                html += `<div style="background:rgba(0,0,0,0.4); padding:15px; border-radius:20px; display:flex; justify-content:space-between; margin-bottom:10px; border:1px solid var(--glass-border);"><span style="font-weight:900; color:var(--accent);">${p.name}</span><div>${f}</div></div>`;
+            if(chart) chart.destroy();
+            chart = new Chart(document.getElementById('radarChart'), {
+                type: 'radar',
+                data: { labels: ['PPD', 'MPR', 'PEGADA', 'CIERRE', 'RITMO'], datasets: [{ data: [p.ppd, p.mpr*10, 80, 70, 90], borderColor: p.color, backgroundColor: p.color + '33' }] },
+                options: { scales: { r: { grid: { color: '#444' }, pointLabels: { color: '#fff' }, ticks: { display: false } } }, plugins: { legend: { display: false } } }
             });
-            document.getElementById('teamFeatsContent').innerHTML = html;
         }
 
         const list = document.getElementById('playerList');
-        players.forEach((p, i) => { const ch = document.createElement('div'); ch.className = 'player-chip'; ch.id = `chip-${i}`; ch.innerText = p.name; ch.onclick = () => { updateDashboard(i); playDardo(); }; list.appendChild(ch); });
+        players.forEach((p, i) => {
+            const ch = document.createElement('div'); ch.className = 'player-chip'; ch.id = `chip-${i}`; ch.innerText = p.name;
+            ch.onclick = () => { updateDashboard(i); playDardo(); };
+            list.appendChild(ch);
+        });
 
-        function openTab(id) { document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active')); document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active')); document.getElementById(id).classList.add('active'); event.currentTarget.classList.add('active'); }
+        function openTab(id) { 
+            document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none'); 
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(id).style.display = 'block'; 
+            event.currentTarget.classList.add('active'); 
+        }
 
-        window.onload = () => { updateDashboard(0); };
+        window.onload = () => updateDashboard(0);
     </script>
 </body>
 </html>
