@@ -2,118 +2,445 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>YATEDARTS | War Room J4</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>YATEDARTS | War Room J4 · Championship Elite</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
-        :root { --primary: #ff4d4d; --accent: #00d4ff; --gold: #ffd700; --success: #4ade80; }
-        body { font-family: 'Inter', sans-serif; color: white; background: #0b0b14; margin: 0; }
-        .wallpaper { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('pub_yatedigo.jpg') no-repeat center center; background-size: cover; z-index: -2; filter: brightness(0.3) blur(10px); }
-        .navbar { background: rgba(10, 10, 20, 0.85); backdrop-filter: blur(20px); padding: 12px; display: flex; gap: 10px; position: sticky; top: 0; z-index: 1000; border-bottom: 2px solid var(--primary); overflow-x: auto; scrollbar-width: none; }
-        .nav-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--primary); color: white; padding: 10px 20px; border-radius: 40px; font-weight: 900; cursor: pointer; flex-shrink: 0; text-transform: uppercase; font-size: 0.8rem; }
-        .nav-btn.active { background: var(--primary); box-shadow: 0 0 15px var(--primary); }
-        .container { width: 95%; max-width: 1300px; margin: 25px auto; }
-        .card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(40px); border-radius: 35px; padding: 30px; border: 1px solid rgba(255,255,255,0.08); margin-bottom: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
-        .mvp-badge { background: linear-gradient(45deg, var(--gold), #ff4d4d); padding: 25px; border-radius: 50px; text-align: center; font-weight: 950; font-size: 1.4rem; margin-bottom: 30px; border: 3px solid #fff; animation: pulse 2s infinite alternate; }
-        @keyframes pulse { from { transform: scale(1); } to { transform: scale(1.02); } }
-        .player-chip { background: rgba(0,0,0,0.5); padding: 12px 22px; border-radius: 40px; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); font-weight: 800; white-space: nowrap; margin-right: 10px; }
-        .player-chip.selected { border-color: var(--accent); background: rgba(0,212,255,0.2); }
-        .motivation-box { line-height: 1.8; padding: 25px; border-left: 6px solid var(--primary); background: rgba(0,0,0,0.3); border-radius: 0 25px 25px 0; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --primary: #ff4d4d;
+            --secondary: #1a1a2e;
+            --accent: #00d4ff;
+            --bg: #0b0b14;
+            --card: #16213e;
+            --text: #e9ecef;
+            --gold: #ffd700;
+            --success: #4ade80;
+            --conguito: #a0611a;
+            --danger: #ff4b2b;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            color: var(--text);
+            margin: 0;
+            padding-bottom: 30px;
+            background: radial-gradient(circle at 20% 30%, rgba(11, 11, 20, 0.96), rgba(0, 0, 0, 0.98)), 
+                        repeating-linear-gradient(45deg, rgba(255, 77, 77, 0.03) 0px, rgba(255, 77, 77, 0.03) 2px, transparent 2px, transparent 8px);
+            background-attachment: fixed;
+        }
+
+        .navbar {
+            background: rgba(10, 10, 20, 0.92);
+            backdrop-filter: blur(14px);
+            padding: 8px 12px;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 77, 77, 0.6);
+            color: white;
+            padding: 8px 18px;
+            cursor: pointer;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+        .nav-btn.active {
+            background: var(--primary);
+            border-color: var(--gold);
+            box-shadow: 0 0 12px var(--primary);
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1300px;
+            margin: 20px auto;
+        }
+        .tab-content {
+            display: none;
+            animation: fadeSlide 0.4s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+        @media (min-width: 860px) {
+            .grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        .card {
+            background: rgba(22, 33, 62, 0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            padding: 24px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .mvp-badge {
+            position: relative;
+            background: linear-gradient(-45deg, #f12711, #f5af19, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 5s ease infinite, mvpPulse 2s infinite ease-in-out;
+            color: #fff;
+            padding: 22px 16px;
+            border-radius: 60px;
+            text-align: center;
+            font-weight: 950;
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            border: 3px solid #fff;
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.7);
+            text-transform: uppercase;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes mvpPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        .selector-ui {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            overflow-x: auto;
+            padding: 5px 2px;
+        }
+        .player-chip {
+            background: #0f1a2f;
+            padding: 10px 20px;
+            border-radius: 40px;
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            font-weight: 700;
+            white-space: nowrap;
+            transition: 0.2s;
+        }
+        .player-chip.selected {
+            border-color: var(--accent);
+            background: rgba(0, 212, 255, 0.25);
+            box-shadow: 0 0 12px var(--accent);
+        }
+
+        .feat-badge {
+            padding: 8px 16px;
+            border-radius: 40px;
+            display: inline-block;
+            margin: 5px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            background: rgba(255, 215, 0, 0.2);
+            color: var(--gold);
+            border: 1px solid var(--gold);
+        }
+
+        .motivation-box {
+            line-height: 1.7;
+            font-size: 0.95rem;
+            border-left: 5px solid var(--primary);
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.45);
+            border-radius: 0 25px 25px 0;
+            color: #f1f1f1;
+            text-align: justify;
+        }
+        .motivation-box b { color: var(--accent); }
+
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        
+        .battle-row {
+            display: grid;
+            grid-template-columns: 1fr 80px 1fr;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 12px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 12px;
+            border-radius: 20px;
+        }
+
+        .medallero-grid { display: flex; flex-direction: column; gap: 15px; margin-top: 15px; }
+        .medallero-player {
+            background: rgba(0, 0, 0, 0.45);
+            border-radius: 24px;
+            padding: 15px 18px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            border: 1px solid rgba(255,215,0,0.2);
+        }
+        .medallero-name { font-weight: 800; font-size: 1.1rem; color: var(--accent); min-width: 130px; }
+        .med-feat { background: #1e2a47; padding: 6px 12px; border-radius: 30px; font-size: 0.75rem; font-weight: bold; display: inline-block; margin: 3px 5px; color: var(--gold); }
+        .med-total { text-align: center; margin-top: 20px; padding: 12px; background: rgba(0,0,0,0.5); border-radius: 30px; font-size: 0.85rem; border-top: 1px solid var(--gold); }
+
+        canvas { max-height: 260px; }
+        footer { text-align: center; margin-top: 40px; font-size: 0.7rem; color: #aaa; }
     </style>
 </head>
-<body onclick="startAudio()">
-    <div class="wallpaper"></div>
-    <audio id="bgMusic" loop><source src="dartstema.mp3" type="audio/mpeg"></audio>
-    <audio id="dardoSound"><source src="dardo.mp3" type="audio/mpeg"></audio>
+<body>
 
-    <div class="navbar">
-        <button class="nav-btn active" onclick="openTab('perfiles'); playDardo()">👤 Perfiles J4</button>
-        <button class="nav-btn" onclick="openTab('clasificacion'); playDardo()">🏆 Clasificación</button>
-        <button class="nav-btn" onclick="openTab('scouting'); playDardo()">⚔️ War Room J5</button>
-    </div>
+<div class="navbar">
+    <button class="nav-btn active" data-tab="individual">👤 PERFILES J4</button>
+    <button class="nav-btn" data-tab="global">📈 EVOLUCIÓN</button>
+    <button class="nav-btn" data-tab="historico">📅 HISTÓRICO</button>
+    <button class="nav-btn" data-tab="scouting">⚔️ WAR ROOM J5</button>
+</div>
 
-    <div class="container">
-        <div id="perfiles" class="tab-content active">
-            <div class="mvp-badge">🏆 TOP #20 RANKING GENERAL: JOSÉ ALEJANDRO 🏆</div>
-            <div style="display:flex; overflow-x:auto; padding-bottom:15px; margin-bottom:20px;" id="playerList"></div>
-            
-            <div id="singlePlayerContent" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px;">
-                <div class="card">
-                    <h2 id="pName" style="color: var(--accent); margin-top:0;">Jugador</h2>
-                    <div style="display: flex; gap: 15px; margin: 20px 0;">
-                        <div style="background: rgba(0,0,0,0.5); padding: 20px; border-radius: 20px; flex:1; text-align:center;">
-                            <span style="font-size: 0.75rem; color: var(--accent);">PPD</span>
-                            <strong id="pPPD" style="font-size: 2rem; display: block;">-</strong>
-                        </div>
-                        <div style="background: rgba(0,0,0,0.5); padding: 20px; border-radius: 20px; flex:1; text-align:center;">
-                            <span style="font-size: 0.75rem; color: var(--accent);">MPR</span>
-                            <strong id="pMPR" style="font-size: 2rem; display: block;">-</strong>
-                        </div>
-                    </div>
-                    <canvas id="radarChart"></canvas>
-                </div>
-                <div class="card">
-                    <h3>🎖️ Informe de Situación</h3>
-                    <div id="pMotivation" class="motivation-box"></div>
-                </div>
-            </div>
+<div class="container">
+    <div id="individual" class="tab-content active">
+        <div class="mvp-badge" id="mvpDynamicBadge">
+            🏆 LÍDER YATEDARTS J4: JOSÉ ALEJANDRO · RANK #7 🏆
         </div>
 
-        <div id="clasificacion" class="tab-content" style="display:none;">
+        <div class="selector-ui" id="playerList">
+            <div class="player-chip chip-all" id="chip-all">📊 EQUIPO · MEDALLERO</div>
+        </div>
+
+        <div id="singlePlayerContent" class="grid">
             <div class="card">
-                <h2>Estado de Liga - Jornada 4</h2>
-                <p>Mantenemos la <b>2ª posición</b> con 8 puntos, empatados con el líder.</p>
-                <div style="background: rgba(0,212,255,0.1); padding: 20px; border-radius: 20px; margin-top: 20px;">
-                    <p>Pegada del Equipo (J1-J4): <b>60 Low Tons</b> acumulados.</p>
-                    <p>Media Combinada: <b>51.14</b></p>
+                <h2 id="pName" style="margin-top:0; color: var(--accent); font-size: 1.8rem;">Jugador</h2>
+                <div style="display: flex; gap: 15px; margin: 25px 0;">
+                    <div style="background: rgba(0,0,0,0.5); padding: 18px; border-radius: 24px; flex:1; text-align:center;">
+                        <span style="font-size: 0.75rem; color: var(--accent); font-weight: bold;">PPD GENERAL</span>
+                        <strong id="pPPD" style="font-size: 2rem; display: block;">-</strong>
+                    </div>
+                    <div style="background: rgba(0,0,0,0.5); padding: 18px; border-radius: 24px; flex:1; text-align:center;">
+                        <span style="font-size: 0.75rem; color: var(--accent); font-weight: bold;">MPR GENERAL</span>
+                        <strong id="pMPR" style="font-size: 2rem; display: block;">-</strong>
+                    </div>
                 </div>
+                <canvas id="individualRadar"></canvas>
             </div>
+            <div class="card">
+                <h3>🎖️ Hazañas Acumuladas (J1-J4)</h3>
+                <div id="pHazanasList" style="margin: 15px 0;"></div>
+                <h3 style="color: var(--primary); margin-top: 20px;">📝 Informe de Rendimiento</h3>
+                <div id="pMotivation" class="motivation-box"></div>
+            </div>
+        </div>
+
+        <div id="teamFeatsSummary" class="card" style="display:none;">
+            <h2 style="text-align:center; color: var(--gold); letter-spacing: 2px;">🏅 MEDALLERO COLECTIVO J4</h2>
+            <div id="teamFeatsContent" style="margin-top: 20px;"></div>
         </div>
     </div>
 
-    <script>
-        const players = [
-            { name: "José Alejandro", ppd: 27.66, mpr: 2.94, rank: 20, color: "#00d4ff", motivation: "<b>EL LÍDER DEL CLUB.</b> José, ocupas el <b>puesto #20</b> del ranking individual. Eres el jugador con el MPR más equilibrado de la plantilla (2.94). Tu papel para la J5 es frenar el avance del rival en el primer individual de Cricket." },
-            { name: "Agustín Díaz", ppd: 28.11, mpr: 2.68, rank: 11, color: "#ff4d4d", motivation: "<b>EL REY DE LA PEGADA.</b> Agustín, con **22 Low Tons**, eres el máximo artillero. En el 501 nadie te tose. Puesto #11 del grupo." },
-            { name: "Roberto Lorente", ppd: 23.44, mpr: 2.19, rank: 33, color: "#fbbf24", motivation: "<b>EL MURO.</b> Roberto, en el <b>puesto #33</b>, tu solidez en los momentos de presión es fundamental. Has demostrado que puedes puntuar alto cuando el partido se aprieta." }
-        ];
+    <div id="global" class="tab-content">
+        <div class="grid">
+            <div class="card"><h3>📊 Evolución PPD (J1 → J4)</h3><canvas id="chartGlobalPPD"></canvas></div>
+            <div class="card"><h3>🎯 Evolución MPR (J1 → J4)</h3><canvas id="chartGlobalMPR"></canvas></div>
+        </div>
+    </div>
 
-        let chart;
-        function playDardo() { const s = document.getElementById('dardoSound'); s.currentTime = 0; s.play(); }
-        function startAudio() { const m = document.getElementById('bgMusic'); if(m.paused){ m.volume = 0.2; m.play(); } }
+    <div id="historico" class="tab-content">
+        <div class="card">
+            <h2>📅 Resultados Temporada 2026</h2>
+            <table>
+                <thead><tr><th>J</th><th>RIVAL</th><th>RESULTADO</th><th>ESTADO</th></tr></thead>
+                <tbody>
+                    <tr><td>1</td><td>La Peña de la Paca</td><td style="color:var(--success); font-weight:900;">6 - 4</td><td>✅ Victoria</td></tr>
+                    <tr><td>2</td><td>Cerveza Aquí</td><td style="color:var(--success); font-weight:900;">7 - 3</td><td>✅ Victoria</td></tr>
+                    <tr><td>3</td><td>Arkadios Errantes</td><td style="color:var(--success); font-weight:900;">6 - 4</td><td>✅ Victoria</td></tr>
+                    <tr><td>4</td><td>Beeps Vaporub</td><td style="color:var(--danger); font-weight:900;">3 - 7</td><td>❌ Derrota</td></tr>
+                    <tr style="opacity:0.6;"><td>5</td><td>Próximo Rival</td><td>--</td><td>⚔️ Pendiente</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-        function updateDashboard(idx) {
-            const p = players[idx];
-            document.querySelectorAll('.player-chip').forEach(c => c.classList.remove('selected'));
-            document.getElementById(`chip-${idx}`).classList.add('selected');
-            document.getElementById('pName').innerText = p.name + " (#" + p.rank + ")";
-            document.getElementById('pPPD').innerText = p.ppd.toFixed(2);
-            document.getElementById('pMPR').innerText = p.mpr.toFixed(2);
-            document.getElementById('pMotivation').innerHTML = p.motivation;
+    <div id="scouting" class="tab-content">
+        <div class="card">
+            <h2 style="text-align:center; color: var(--primary);">⚔️ WAR ROOM: OBJETIVO LIDERATO</h2>
+            <div style="text-align:center; margin-bottom:20px;">
+                <p>Somos el <b>2º mejor equipo</b> del grupo con 8 puntos.</p>
+            </div>
+            <div class="battle-row"><div style="color:var(--success); font-weight:900;">60</div><div>🐘 LOW TONS</div><div>33</div></div>
+            <div class="battle-row"><div style="color:var(--success); font-weight:900;">11</div><div>🎯 HATS</div><div>7</div></div>
+            <p style="text-align:center; margin-top:20px;">Nuestra pegada es superior al líder (Beeps). La clave es recuperar la consistencia en el cierre de Cricket.</p>
+        </div>
+    </div>
+</div>
 
-            if(chart) chart.destroy();
-            chart = new Chart(document.getElementById('radarChart'), {
-                type: 'radar',
-                data: { labels: ['PPD', 'MPR', 'PEGADA', 'CIERRE', 'RITMO'], datasets: [{ data: [p.ppd, p.mpr*10, 80, 70, 90], borderColor: p.color, backgroundColor: p.color + '33' }] },
-                options: { scales: { r: { grid: { color: '#444' }, pointLabels: { color: '#fff' }, ticks: { display: false } } }, plugins: { legend: { display: false } } }
-            });
+<footer>© 2026 YATEDARTS Analytics · Ranking Oficial J4</footer>
+
+<script>
+    // ==================== DATOS ACTUALIZADOS JORNADA 4 ====================
+    // Datos basados en Rankings Individuales y Actas J1-J4
+    const players = [
+        { 
+            id: 0, name: "José Alejandro", ppd: [29.12, null, 24.48, 21.84, null], mpr: [2.64, 2.87, 2.42, 3.13, null], color: "#00d4ff",
+            feats: { HAT: 4, LT: 8, "7M": 3, "6M": 4, "5M": 9 },
+            motivation: "<b>EL LÍDER DEL RANKING.</b> José, has escalado hasta el <b>Puesto #7</b> del grupo 030 con un COMB de 57.06. En la J4 contra el líder demostraste tu clase con un 3.13 MPR, el mejor del equipo esa noche. <br><br><b>FORTALEZA:</b> Frialdad absoluta en Cricket. <b>DEBILIDAD:</b> Caída del PPD en situaciones de presión externa. <br><br><b>PAPEL J5:</b> Eres el 'Closer'. Tu misión es certificar los sets que los bombarderos preparen."
+        },
+        { 
+            id: 1, name: "Agustín Díaz", ppd: [31.18, 30.26, 29.50, 28.00, null], mpr: [2.46, 2.70, 2.95, 2.15, null], color: "#ff4d4d",
+            feats: { HAT: 3, LT: 22, "6M": 0, "5M": 10 },
+            motivation: "<b>EL REY DE LOS LOW TONS.</b> Agustín, ocupas el <b>Puesto #11</b> general. Tus 22 Low Tons son el récord absoluto de la categoría. Mantienes el PPD más alto de la plantilla (28.11 media general). <br><br><b>FORTALEZA:</b> Volumen de pegada inalcanzable. <b>DEBILIDAD:</b> Irregularidad en Cricket cuando el triple T20 se bloquea. <br><br><b>PAPEL J5:</b> Spearhead. Tu misión es demoler la moral del rival en el 501 inicial."
+        },
+        { 
+            id: 2, name: "Alejandro Souto", ppd: [null, 21.72, 18.46, 18.00, null], mpr: [null, 3.08, null, 2.75, null], color: "#f472b6",
+            feats: { LT: 6, HAT: 2, "7M": 4, "6M": 5, "5M": 8 },
+            motivation: "<b>EL SNIPER QUIRÚRGICO.</b> Souto, Ranking #13. Eres el único jugador del equipo con una media general superior a <b>3.00 MPR</b>. Tu precisión en marcas de 7M y 6M es nivel de liga superior. <br><br><b>FORTALEZA:</b> El triple es tu zona de confort. <b>DEBILIDAD:</b> PPD excesivamente bajo (22.87 media) para tu calidad de brazo. <br><br><b>PAPEL J5:</b> Ejecutor de Cricket. Arkadios y Beeps te temen por tu capacidad de cerrar números altos."
+        },
+        { 
+            id: 3, name: "Elias Ramírez", ppd: [21.14, 23.04, 26.12, 21.57, null], mpr: [2.66, 2.78, 2.44, 2.50, null], color: "#4ade80",
+            feats: { LT: 11, HAT: 2, "5M": 6 },
+            motivation: "<b>LA BESTIA CONSOLIDADA.</b> Elias, Ranking #20. Te has metido en el Top 20 del grupo por méritos propios. Tu evolución desde la J1 es constante y fiable. <br><br><b>FORTALEZA:</b> Polivalencia; puntúas y marcas con la misma solidez. <b>DEBILIDAD:</b> Necesitas recuperar el 'Hat Trick' power de las primeras jornadas. <br><br><b>PAPEL J5:</b> Eres el compañero ideal para parejas; equilibras cualquier set."
+        },
+        { 
+            id: 4, name: "David Casaseca", ppd: [26.50, null, 18.01, 25.80, null], mpr: [2.69, null, 3.32, 2.80, null], color: "#ffd700",
+            feats: { LT: 10, "7M": 2, "5M": 3 },
+            motivation: "<b>EL CIRUJANO DEL TRIPLE.</b> David, Ranking #25. Tu actuación en la J3 con un <b>3.32 MPR</b> fue una de las mejores del club este mes. <br><br><b>FORTALEZA:</b> Visión táctica y control del T20/T19. <b>DEBILIDAD:</b> El parón de la J2 afectó ligeramente a tu ritmo de puntos, pero ya estás de vuelta. <br><br><b>PAPEL J5:</b> Eres nuestra baza para los individuales de Cricket medio."
+        },
+        { 
+            id: 5, name: "Roberto Lorente", ppd: [null, 19.12, 21.12, 23.00, null], mpr: [null, 2.10, 2.54, 2.10, null], color: "#fbbf24",
+            feats: { LT: 3, HAT: 1 },
+            motivation: "<b>EL MURO DE CONTENCIÓN.</b> Roberto, Ranking #33. Tu progresión en PPD es excelente, subiendo de 19 a 23 en solo 3 jornadas. <br><br><b>FORTALEZA:</b> Mentalidad defensiva; no te dejas amedrentar. <b>DEBILIDAD:</b> Falta de marcas altas (5M-7M) para competir con los top-rankers. <br><br><b>PAPEL J5:</b> Sostén del equipo; tu solidez es fundamental para el bloque."
         }
+    ];
 
-        const list = document.getElementById('playerList');
-        players.forEach((p, i) => {
-            const ch = document.createElement('div'); ch.className = 'player-chip'; ch.id = `chip-${i}`; ch.innerText = p.name;
-            ch.onclick = () => { updateDashboard(i); playDardo(); };
-            list.appendChild(ch);
+    let radarChart = null;
+    let globalPPDChart = null;
+    let globalMPRChart = null;
+
+    function updateDashboard(playerId) {
+        const p = players[playerId];
+        document.getElementById('singlePlayerContent').style.display = 'grid';
+        document.getElementById('teamFeatsSummary').style.display = 'none';
+        document.querySelectorAll('.player-chip').forEach(ch => ch.classList.remove('selected'));
+        const activeChip = document.getElementById(`chip-${playerId}`);
+        if (activeChip) activeChip.classList.add('selected');
+        document.getElementById('pName').innerText = p.name;
+        
+        // Mostrar medias generales del ranking en el dashboard
+        const avgPPD = p.ppd.filter(v => v !== null).reduce((a, b) => a + b, 0) / p.ppd.filter(v => v !== null).length;
+        const avgMPR = p.mpr.filter(v => v !== null).reduce((a, b) => a + b, 0) / p.mpr.filter(v => v !== null).length;
+        
+        document.getElementById('pPPD').innerText = avgPPD.toFixed(2);
+        document.getElementById('pMPR').innerText = avgMPR.toFixed(2);
+        document.getElementById('pMotivation').innerHTML = p.motivation;
+        
+        const hList = document.getElementById('pHazanasList');
+        hList.innerHTML = "";
+        const featMap = { HAT: '🎯', LT: '🐘', "7M": '7️⃣', "6M": '6️⃣', "5M": '5️⃣' };
+        for (let [k, icon] of Object.entries(featMap)) {
+            if(p.feats[k]) hList.innerHTML += `<div class="feat-badge"> ${icon} ${p.feats[k]} x ${k}</div>`;
+        }
+        
+        if(radarChart) radarChart.destroy();
+        radarChart = new Chart(document.getElementById('individualRadar').getContext('2d'), {
+            type: 'radar',
+            data: { 
+                labels: ['PPD', 'MPR (x10)', 'HATS', 'TONS', 'MARCAS'],
+                datasets: [{ 
+                    data: [avgPPD, avgMPR * 10, (p.feats.HAT||0)*5, (p.feats.LT||0)*2, (p.feats["7M"]||0)*10],
+                    borderColor: p.color, backgroundColor: p.color + '33', borderWidth: 2, pointBackgroundColor: p.color
+                }]
+            },
+            options: { 
+                responsive: true,
+                scales: { r: { grid: { color: '#444' }, pointLabels: { color: '#fff' }, ticks: { display: false } } },
+                plugins: { legend: { display: false } }
+            }
         });
+    }
 
-        function openTab(id) { 
-            document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none'); 
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(id).style.display = 'block'; 
-            event.currentTarget.classList.add('active'); 
-        }
+    function showTeamFeats() {
+        document.getElementById('singlePlayerContent').style.display = 'none';
+        document.getElementById('teamFeatsSummary').style.display = 'block';
+        document.querySelectorAll('.player-chip').forEach(c => c.classList.remove('selected'));
+        document.getElementById('chip-all').classList.add('selected');
+        
+        let html = `<div class="medallero-grid">`;
+        players.forEach(p => {
+            let featsHtml = '';
+            const emojiMap = { HAT: '🎯', LT: '🐘', "7M": '7️⃣', "6M": '6️⃣', "5M": '5️⃣' };
+            for (let [k, v] of Object.entries(p.feats)) {
+                if (v > 0) featsHtml += `<span class="med-feat">${emojiMap[k] || k} ${v}</span>`;
+            }
+            html += `<div class="medallero-player"><div class="medallero-name">${p.name}</div><div class="medallero-feats">${featsHtml || '⚪'}</div></div>`;
+        });
+        html += `<div class="med-total">🏆 TOTALES J4: 60 Low Tons · 11 Hat Tricks · 9 x 7M · 🔥 COMB Equipo: 51.14 🔥</div></div>`;
+        document.getElementById('teamFeatsContent').innerHTML = html;
+    }
 
-        window.onload = () => updateDashboard(0);
-    </script>
+    function initGlobalCharts() {
+        const labels = ['J1', 'J2', 'J3', 'J4', 'J5'];
+        const ppdDatasets = players.map(p => ({ label: p.name, data: p.ppd, borderColor: p.color, tension: 0.2, spanGaps: true }));
+        const mprDatasets = players.map(p => ({ label: p.name, data: p.mpr, borderColor: p.color, tension: 0.2, spanGaps: true }));
+        
+        globalPPDChart = new Chart(document.getElementById('chartGlobalPPD'), {
+            type: 'line', data: { labels, datasets: ppdDatasets },
+            options: { responsive: true, plugins: { legend: { labels: { color: '#fff' } } }, scales: { y: { ticks: { color: '#ccc' } }, x: { ticks: { color: '#ddd' } } } }
+        });
+        globalMPRChart = new Chart(document.getElementById('chartGlobalMPR'), {
+            type: 'line', data: { labels, datasets: mprDatasets },
+            options: { responsive: true, plugins: { legend: { labels: { color: '#fff' } } }, scales: { y: { ticks: { color: '#ccc' } }, x: { ticks: { color: '#ddd' } } } }
+        });
+    }
+
+    function setupTabs() {
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.getAttribute('data-tab');
+                document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    }
+
+    function buildPlayerChips() {
+        const container = document.getElementById('playerList');
+        players.forEach(p => {
+            const chip = document.createElement('div');
+            chip.className = 'player-chip';
+            chip.id = `chip-${p.id}`;
+            chip.innerText = p.name;
+            chip.onclick = () => updateDashboard(p.id);
+            container.appendChild(chip);
+        });
+        document.getElementById('chip-all').onclick = () => showTeamFeats();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        buildPlayerChips();
+        updateDashboard(0);
+        initGlobalCharts();
+        setupTabs();
+    });
+</script>
 </body>
 </html>
