@@ -2,71 +2,55 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>YATEDARTS | War Room J5</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YATEDARTS | Clasificación Grupo 030</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --primary: #ff4d4d; --accent: #00d4ff; --bg: #0b0b14;
-            --gold: #ffd700; --success: #4ade80; --glass: rgba(22, 33, 62, 0.7);
-        }
-        body { font-family: 'Inter', sans-serif; color: #e9ecef; background: #0b0b14; padding-bottom: 30px; }
-        .navbar { background: rgba(10, 10, 20, 0.92); backdrop-filter: blur(14px); padding: 10px; display: flex; gap: 10px; position: sticky; top: 0; z-index: 1000; border-bottom: 2px solid var(--primary); overflow-x: auto; }
-        .nav-btn { background: rgba(255,255,255,0.08); border: 1px solid var(--primary); color: white; padding: 10px 20px; border-radius: 40px; font-weight: 700; font-size: 0.8rem; cursor: pointer; flex-shrink: 0; }
-        .nav-btn.active { background: var(--primary); box-shadow: 0 0 10px var(--primary); }
-        .container { width: 95%; max-width: 1300px; margin: 20px auto; }
-        .card { background: var(--glass); backdrop-filter: blur(20px); border-radius: 28px; padding: 25px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 25px; }
-        .highlight { background: rgba(0, 212, 255, 0.12); font-weight: 900; }
-        .stat-val { font-size: 2.2rem; font-weight: 900; color: var(--accent); display: block; }
-        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-        th { color: var(--accent); padding: 15px; border-bottom: 2px solid var(--primary); text-transform: uppercase; text-align: left; }
+        :root { --primary: #ff4d4d; --accent: #00d4ff; --gold: #ffd700; --success: #4ade80; }
+        body { margin: 0; font-family: 'Inter', sans-serif; color: white; background: #0b0b14; overflow-x: hidden; }
+        .wallpaper { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('pub_yatedigo.jpg') no-repeat center center; background-size: cover; z-index: -2; filter: brightness(0.4) blur(8px); }
+        .container { width: 95%; max-width: 1000px; margin: 40px auto; text-align: center; animation: fadeIn 1s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .glass-panel { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(30px); border-radius: 40px; border: 1px solid rgba(255,255,255,0.1); padding: 40px 20px; box-shadow: 0 25px 50px rgba(0,0,0,0.6); }
+        h1 { font-size: 3rem; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 5px; text-shadow: 0 0 20px var(--primary); }
+        .subtitle { color: var(--accent); font-weight: 800; margin-bottom: 40px; letter-spacing: 2px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9rem; }
+        th { color: var(--accent); padding: 15px; border-bottom: 2px solid var(--primary); text-transform: uppercase; }
         td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .highlight { background: rgba(0, 212, 255, 0.15); font-weight: 900; }
+        .feat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-top: 30px; }
+        .feat-card { background: rgba(0,0,0,0.4); padding: 20px; border-radius: 25px; border: 1px solid var(--gold); transition: 0.3s; }
+        .feat-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+        .feat-card span { display: block; font-size: 0.7rem; color: var(--gold); margin-bottom: 5px; text-transform: uppercase; }
+        .btn-enter { display: inline-block; margin-top: 40px; background: var(--primary); color: white; padding: 20px 50px; border-radius: 50px; text-decoration: none; font-weight: 900; text-transform: uppercase; box-shadow: 0 0 25px var(--primary); transition: 0.3s; }
+        .btn-enter:hover { transform: scale(1.05); box-shadow: 0 0 50px var(--primary); }
     </style>
 </head>
 <body>
-    <div class="navbar">
-        <button class="nav-btn active" onclick="showTab('clasificacion')">🏆 LIGA J5</button>
-        <button class="nav-btn" onclick="showTab('individual')">👤 PERFILES</button>
-        <button class="nav-btn" onclick="showTab('evolucion')">📈 EVOLUCIÓN</button>
-    </div>
-
+    <div class="wallpaper"></div>
     <div class="container">
-        <div id="clasificacion" class="tab-content">
-            <div class="card">
-                <h2 style="text-align:center; color: var(--gold); text-transform: uppercase;">Clasificación Grupo 030 - Jornada 5</h2>
-                <table>
-                    <thead>
-                        <tr><th>RANK</th><th>EQUIPO</th><th>PPD</th><th>MPR</th><th>PTS</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>1</td><td>BEEPS VAPORUB</td><td>25.01</td><td>3.05</td><td>10</td></tr>
-                        <tr class="highlight"><td>2</td><td>YATEDARTS</td><td>24.30</td><td>2.58</td><td>8</td></tr>
-                        <tr><td>3</td><td>LA PEÑA DE LA PACA</td><td>23.83</td><td>2.70</td><td>6</td></tr>
-                        <tr><td>4</td><td>LOS FARGONITAS</td><td>24.50</td><td>2.64</td><td>4</td></tr>
-                    </tbody>
-                </table>
-                <div style="text-align:center; margin-top:20px;">
-                    <p>Estado: <b>4 Victorias - 1 Derrota</b> | 28 Sets Ganados / 22 Perdidos</p>
-                </div>
+        <div class="glass-panel">
+            <h1>YATEDARTS</h1>
+            <div class="subtitle">RANKING EQUIPOS · JORNADA 5</div>
+            <table>
+                <thead>
+                    <tr><th>POS</th><th>EQUIPO</th><th>PPD</th><th>MPR</th><th>PTS</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>BEEPS VAPORUB</td><td>25.01</td><td>3.05</td><td>10</td></tr>
+                    <tr class="highlight"><td>2</td><td>YATEDARTS</td><td>24.30</td><td>2.58</td><td>8</td></tr>
+                    <tr><td>3</td><td>LA PEÑA DE LA PACA</td><td>23.83</td><td>2.70</td><td>6</td></tr>
+                    <tr><td>4</td><td>LOS FARGONITAS</td><td>24.50</td><td>2.64</td><td>4</td></tr>
+                    <tr><td>5</td><td>CERVEZA AQUI</td><td>25.41</td><td>2.56</td><td>3</td></tr>
+                </tbody>
+            </table>
+            <div class="feat-grid">
+                <div class="feat-card"><span>TOTAL LOW TONS</span><strong>78 LT</strong></div>
+                <div class="feat-card"><span>HAT TRICKS</span><strong>15 HAT</strong></div>
+                <div class="feat-card"><span>SETS GANADOS</span><strong>28 SETS</strong></div>
+                <div class="feat-card"><span>MARCAS 7M</span><strong>11 TOTAL</strong></div>
             </div>
-        </div>
-
-        <div id="individual" class="tab-content" style="display:none;">
-            <div class="card">
-                <h2 style="color:var(--accent);">ANÁLISIS DE FILAS J5</h2>
-                <p>Datos actualizados según el ranking de jugadores de la Jornada 5.</p>
-                </div>
+            <a href="warroom.html" class="btn-enter">Abrir Sala de Guerra</a>
         </div>
     </div>
-
-    <script>
-        function showTab(id) {
-            document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
-            document.getElementById(id).style.display = 'block';
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-        }
-    </script>
 </body>
 </html>
